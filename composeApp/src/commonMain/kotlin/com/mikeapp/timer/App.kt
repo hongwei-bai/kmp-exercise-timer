@@ -1,9 +1,9 @@
-package com.example.kmpdemo
+package com.mikeapp.timer
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import com.example.kmpdemo.theme.GreenTheme
-import com.example.kmpdemo.ui.HomeScreen
+import com.mikeapp.timer.theme.GreenTheme
+import com.mikeapp.timer.ui.HomeScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

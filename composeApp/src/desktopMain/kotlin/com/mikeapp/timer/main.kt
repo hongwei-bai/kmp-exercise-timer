@@ -1,4 +1,4 @@
-package com.example.kmpdemo
+package com.mikeapp.timer
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window

@@ -1,6 +1,6 @@
-package com.example.kmpdemo.ui
+package com.mikeapp.timer.ui
 
-import com.example.kmpdemo.getPlatform
+import com.mikeapp.timer.getPlatform
 
 class Greeting {
     private val platform = getPlatform()

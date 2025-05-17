@@ -1,4 +1,4 @@
-package com.example.kmpdemo.component
+package com.mikeapp.timer.component
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas

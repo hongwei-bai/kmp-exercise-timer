@@ -1,4 +1,4 @@
-package com.example.kmpdemo
+package com.mikeapp.timer
 
 class JVMPlatform: Platform {
     override val name: String = "Java ${System.getProperty("java.version")}"

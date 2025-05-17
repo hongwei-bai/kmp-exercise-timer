@@ -1,4 +1,4 @@
-package com.example.kmpdemo.component
+package com.mikeapp.timer.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
