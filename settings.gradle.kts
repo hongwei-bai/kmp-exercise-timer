@@ -1,4 +1,4 @@
-rootProject.name = "kmp-compose-demo"
+rootProject.name = "kmp-exercise-timer"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

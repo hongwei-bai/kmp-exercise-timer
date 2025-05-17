@@ -8,7 +8,7 @@ import androidx.compose.ui.window.rememberWindowState
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "kmp-compose-demo",
+        title = "kmp-exercise-timer",
         state = rememberWindowState(
             width = 412.dp,
             height = 915.dp
