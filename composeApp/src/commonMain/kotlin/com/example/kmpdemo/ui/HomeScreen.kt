@@ -166,7 +166,7 @@ fun HomeScreen() {
 
             if (timeRecords.isNotEmpty()) {
                 TimerProgressBar(
-                    totalDuration = 3 * 60 * 1000L,
+                    totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
                     currentTime = currentTimeLong - baselineTimeLong,
                     totalMinutes = progressBarMaxMinute.intValue,
                     dividerMinute = progressBarDividerMinute.intValue
