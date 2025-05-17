@@ -1,4 +1,4 @@
-package com.example.kmpdemo
+package com.mikeapp.timer
 
 import android.os.Build
 

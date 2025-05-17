@@ -69,11 +69,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.example.kmpdemo"
+    namespace = "com.mikeapp.timer"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.example.kmpdemo"
+        applicationId = "com.mikeapp.timer"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -101,11 +101,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "com.example.kmpdemo.MainKt"
+        mainClass = "com.mikeapp.timer.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.example.kmpdemo"
+            packageName = "com.mikeapp.timer"
             packageVersion = "1.0.0"
         }
     }
@@ -114,7 +114,7 @@ compose.desktop {
 sqldelight {
     databases {
         create("AppDatabase") {
-            packageName.set("com.example.kmpdemo.database")
+            packageName.set("com.mikeapp.timer.database")
 
             // Optional: Add this if you want to generate a schema file
             generateAsync.set(false)

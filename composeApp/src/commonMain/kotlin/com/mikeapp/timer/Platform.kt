@@ -1,4 +1,4 @@
-package com.example.kmpdemo
+package com.mikeapp.timer
 
 interface Platform {
     val name: String

@@ -1,4 +1,4 @@
-package com.example.kmpdemo.theme
+package com.mikeapp.timer.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*

@@ -1,4 +1,4 @@
-package com.example.kmpdemo.ui
+package com.mikeapp.timer.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -15,9 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kmpdemo.component.CircleBubble
-import com.example.kmpdemo.component.HalfCircleButtonPair
-import com.example.kmpdemo.component.TimerProgressBar
+import com.mikeapp.timer.component.CircleBubble
+import com.mikeapp.timer.component.HalfCircleButtonPair
+import com.mikeapp.timer.component.TimerProgressBar
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
