@@ -1,4 +1,4 @@
-package com.mikeapp.timer.component
+package com.mikeapp.timer.ui.component
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
@@ -9,6 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -23,8 +26,13 @@ fun TimerProgressBar(
     currentTime: Long,
     totalMinutes: Int,
     dividerMinute: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onWarning: (Int) -> Unit = {},
+    onComplete: (Int) -> Unit = {}
 ) {
+    var lastWarnedMinutes by rememberSaveable { mutableIntStateOf(-1) }
+    var lastCompleteMinutes by rememberSaveable { mutableIntStateOf(-1) }
+
     val progress = (currentTime.toFloat() / totalDuration.toFloat()).coerceIn(0f, 1f)
     val animatedProgress by animateFloatAsState(progress)
 
@@ -36,6 +44,16 @@ fun TimerProgressBar(
         MaterialTheme.colors.primary // Green
     } else {
         MaterialTheme.colors.error // Red
+    }
+    if (dividerMinute > lastWarnedMinutes && currentTime >= dividerTime) {
+        lastWarnedMinutes = dividerMinute
+        onWarning.invoke(lastWarnedMinutes)
+    }
+
+    val completeTime = totalMinutes * 60 * 1000L
+    if (totalMinutes > lastCompleteMinutes && currentTime >= completeTime) {
+        lastCompleteMinutes = totalMinutes
+        onComplete.invoke(lastCompleteMinutes)
     }
 
     BoxWithConstraints(

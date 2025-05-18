@@ -12,6 +12,15 @@
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/AndroidApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/AndroidApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/notification/Notification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/notification/Notification.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/component/CircleBubble.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/CircleBubble.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/component/HalfCircleButtonPair.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/HalfCircleButtonPair.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/component/TimerProgressBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/TimerProgressBar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/theme/Theme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/theme/Theme.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +296,7 @@
       <workItem from="1747493072369" duration="201000" />
       <workItem from="1747493281363" duration="2620000" />
       <workItem from="1747533700014" duration="1385000" />
-      <workItem from="1747539530103" duration="1339000" />
+      <workItem from="1747539530103" duration="4684000" />
     </task>
     <servers />
   </component>

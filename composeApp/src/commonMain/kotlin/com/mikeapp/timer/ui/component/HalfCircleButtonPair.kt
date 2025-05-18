@@ -1,4 +1,4 @@
-package com.mikeapp.timer.component
+package com.mikeapp.timer.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
