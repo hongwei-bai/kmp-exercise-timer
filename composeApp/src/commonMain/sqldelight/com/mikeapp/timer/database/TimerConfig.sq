@@ -1,0 +1,13 @@
+-- timer_config.sq
+CREATE TABLE timer_config (
+  id INTEGER NOT NULL PRIMARY KEY,
+  total INTEGER  NOT NULL,
+  divider INTEGER  NOT NULL
+);
+
+insertOrReplace:
+REPLACE INTO timer_config(id, total, divider)
+VALUES (1, ?1, ?2);
+
+selectOne:
+SELECT * FROM timer_config LIMIT 1;
