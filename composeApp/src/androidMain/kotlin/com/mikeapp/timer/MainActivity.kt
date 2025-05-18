@@ -5,14 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.mikeapp.timer.notification.NotificationPermissionHelper
+import com.mikeapp.timer.permission.AndroidPermissionHelper
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!NotificationPermissionHelper.hasNotificationPermission(this)) {
-            NotificationPermissionHelper.requestNotificationPermission(this)
+        if (!AndroidPermissionHelper.hasNotificationPermission(this)) {
+            AndroidPermissionHelper.requestNotificationPermission(this)
+        }
+
+        if (!AndroidPermissionHelper.hasExactAlarmPermission(this)) {
+            AndroidPermissionHelper.promptExactAlarmPermission(this)
         }
 
         setContent {
