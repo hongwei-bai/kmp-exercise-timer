@@ -15,9 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mikeapp.timer.component.CircleBubble
-import com.mikeapp.timer.component.HalfCircleButtonPair
-import com.mikeapp.timer.component.TimerProgressBar
+import com.mikeapp.timer.notification.Notification
+import com.mikeapp.timer.ui.component.CircleBubble
+import com.mikeapp.timer.ui.component.HalfCircleButtonPair
+import com.mikeapp.timer.ui.component.TimerProgressBar
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -47,6 +48,7 @@ fun HomeScreen() {
     }
 
     if (showDialog) {
+        Notification.showNotification("test", "<UNK> <UNK> <UNK>")
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = { Text("Confirmation") },
@@ -169,7 +171,13 @@ fun HomeScreen() {
                     totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
                     currentTime = currentTimeLong - baselineTimeLong,
                     totalMinutes = progressBarMaxMinute.intValue,
-                    dividerMinute = progressBarDividerMinute.intValue
+                    dividerMinute = progressBarDividerMinute.intValue,
+                    onWarning = {
+                        Notification.showNotification("Warning", "It's $it minutes!")
+                    },
+                    onComplete = {
+                        Notification.showNotification("Time is up!", "It's $it minutes!")
+                    }
                 )
             }
 
