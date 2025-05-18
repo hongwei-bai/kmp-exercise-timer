@@ -11,10 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,31 +67,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.composeApp.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.android [composeApp:installDebug].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.main [desktop].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/kmp/kmp-exercise-timer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.import&quot;,
-    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.composeApp.executor": "Run",
+    "Gradle.Build kmp-exercise-timer.executor": "Run",
+    "Gradle.android [composeApp:installDebug].executor": "Run",
+    "Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor": "Run",
+    "Gradle.main [desktop].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/code/kmp/kmp-exercise-timer/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.import",
+    "typescript.add.unambiguous.imports.on.the.fly": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\sqldelight\com\mikeapp\timer\database" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.mikeapp.timer" />
+      <recent name="com.mikeapp.timer.notification" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.mikeapp.timer" />
@@ -104,7 +113,7 @@
       <recent name="com.mikeapp.timer.component" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.kmp-exercise-timer.composeApp">
+  <component name="RunManager" selected="Gradle.android [composeApp:installDebug]">
     <configuration name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="kmp-exercise-timer.composeApp" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -276,6 +285,9 @@
       <workItem from="1747488131857" duration="4383000" />
       <workItem from="1747493001112" duration="35000" />
       <workItem from="1747493072369" duration="201000" />
+      <workItem from="1747493281363" duration="2620000" />
+      <workItem from="1747533700014" duration="1385000" />
+      <workItem from="1747539530103" duration="1339000" />
     </task>
     <servers />
   </component>
