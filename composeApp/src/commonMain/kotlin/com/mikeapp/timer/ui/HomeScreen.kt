@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikeapp.timer.domain.TimerUseCase
 import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.ui.component.CircleBubble
 import com.mikeapp.timer.ui.component.HalfCircleButtonPair
@@ -26,7 +27,7 @@ import kotlinx.datetime.toLocalDateTime
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(timerUseCase: TimerUseCase) {
     var baselineTimeLong by remember { mutableStateOf(0L) }
     var currentTimeLong by remember { mutableStateOf(0L) }
 
@@ -38,6 +39,25 @@ fun HomeScreen() {
 
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
     val progressBarDividerMinute = remember { mutableIntStateOf(2) }
+
+    LaunchedEffect(Unit) {
+        val initialReps = timerUseCase.getAllReps()
+        println("bbbb Initial reps: $initialReps")
+        reps.clear()
+        reps.addAll(initialReps.map { it.toInt() })
+    }
+
+    val lifecycle = remember { _root_ide_package_.com.mikeapp.timer.lifecycle.AppLifecycle() }
+    LaunchedEffect(Unit) {
+        lifecycle.observeLifecycle(
+            onEnterForeground = {
+                println("🌞 App entered foreground")
+            },
+            onEnterBackground = {
+                println("🌚 App entered background")
+            }
+        )
+    }
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -59,6 +79,7 @@ fun HomeScreen() {
                     // Handle confirm action here
                     timeRecords.clear()
                     reps.clear()
+                    timerUseCase.clearAllReps()
                 }) {
                     Text("Confirm Clear")
                 }
@@ -245,7 +266,10 @@ fun HomeScreen() {
             ) {
                 repsList.forEach {
                     Button(
-                        onClick = { reps.add(it) },
+                        onClick = {
+                            reps.add(it)
+                            timerUseCase.insertRep(it.toLong())
+                        },
                         shape = CircleShape,
                         modifier = Modifier.size(repsButtonDiameter.dp),
                         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary) // Material 2 secondary color
