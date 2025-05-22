@@ -6,15 +6,12 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.mikeapp.timer.di.commonModule
 import com.mikeapp.timer.di.platformModule
-import com.mikeapp.timer.domain.TimerUseCase
 import org.koin.core.context.GlobalContext.startKoin
-import org.koin.java.KoinJavaComponent.get
 
 fun main() = application {
     startKoin {
         modules(platformModule, commonModule)
     }
-    val timerUseCase: TimerUseCase = get(TimerUseCase::class.java)
     Window(
         onCloseRequest = ::exitApplication,
         title = "kmp-exercise-timer",
@@ -23,6 +20,6 @@ fun main() = application {
             height = 915.dp
         )
     ) {
-        App(timerUseCase)
+        App()
     }
 }

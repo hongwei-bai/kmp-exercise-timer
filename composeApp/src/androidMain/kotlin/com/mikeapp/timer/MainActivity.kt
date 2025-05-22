@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.mikeapp.timer.domain.TimerUseCase
 import com.mikeapp.timer.permission.AndroidPermissionHelper
-import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
-    private val timerUseCase = get<TimerUseCase>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,7 +19,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            App(timerUseCase)
+            App()
         }
     }
 

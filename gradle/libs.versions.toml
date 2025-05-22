@@ -12,6 +12,7 @@ androidx-lifecycle = "2.8.4"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-multiplatform = "1.7.3"
+coroutinesExtensions = "<version>"
 junit = "4.13.2"
 koinCompose = "1.0.1"
 kotlin = "2.1.10"
@@ -20,6 +21,7 @@ kotlinxDatetime = "0.5.0"
 lifecycleRuntimeKtx = "2.7.0"
 lifecycleCommonJava8 = "2.7.0"
 lifecycleProcess = "2.7.0"
+slf4jSimple = "2.0.9"
 sqldelight = "2.0.1"
 koin = "3.5.3"
 coroutines = "1.7.3"
@@ -43,10 +45,12 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

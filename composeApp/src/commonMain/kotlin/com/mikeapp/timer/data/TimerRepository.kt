@@ -1,8 +1,10 @@
-package com.mikeapp.timer.domain
+package com.mikeapp.timer.data
 
 import com.mikeapp.timer.database.DatabaseHelper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class TimerUseCase(private val databaseHelper: DatabaseHelper) {
+class TimerRepository(private val databaseHelper: DatabaseHelper) {
 
     // ==== timer_data ====
     fun saveTimerData(total: Long, divider: Long) {
@@ -47,5 +49,9 @@ class TimerUseCase(private val databaseHelper: DatabaseHelper) {
 
     fun getAllReps(): List<Long> {
         return databaseHelper.getAllReps().map { it.rep }
+    }
+
+    fun observeAllReps(): Flow<List<Long>> {
+        return databaseHelper.observeAllReps().map { list -> list.map { it.rep } }
     }
 }

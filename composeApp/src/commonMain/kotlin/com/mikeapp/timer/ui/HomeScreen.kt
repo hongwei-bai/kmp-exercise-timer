@@ -15,7 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mikeapp.timer.domain.TimerUseCase
 import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.ui.component.CircleBubble
 import com.mikeapp.timer.ui.component.HalfCircleButtonPair
@@ -24,28 +23,25 @@ import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.koin.mp.KoinPlatform.getKoin
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeScreen(timerUseCase: TimerUseCase) {
+fun HomeScreen() {
+    val viewModel: TimerViewModel = getKoin().get()
+    val reps by viewModel.reps.collectAsState(emptyList())
+
     var baselineTimeLong by remember { mutableStateOf(0L) }
     var currentTimeLong by remember { mutableStateOf(0L) }
 
     var currentTime by remember { mutableStateOf(getCurrentTime()) }
     val timeRecords = remember { mutableStateListOf<String>() }
-    val reps = remember { mutableStateListOf<Int>() }
+//    val reps = remember { mutableStateListOf<Int>() }
     var showDialog by remember { mutableStateOf(false) }
     var showInputDialog by remember { mutableStateOf(false) }
 
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
     val progressBarDividerMinute = remember { mutableIntStateOf(2) }
-
-    LaunchedEffect(Unit) {
-        val initialReps = timerUseCase.getAllReps()
-        println("bbbb Initial reps: $initialReps")
-        reps.clear()
-        reps.addAll(initialReps.map { it.toInt() })
-    }
 
     val lifecycle = remember { _root_ide_package_.com.mikeapp.timer.lifecycle.AppLifecycle() }
     LaunchedEffect(Unit) {
@@ -78,8 +74,7 @@ fun HomeScreen(timerUseCase: TimerUseCase) {
                     showDialog = false
                     // Handle confirm action here
                     timeRecords.clear()
-                    reps.clear()
-                    timerUseCase.clearAllReps()
+                    viewModel.clearReps()
                 }) {
                     Text("Confirm Clear")
                 }
@@ -115,7 +110,7 @@ fun HomeScreen(timerUseCase: TimerUseCase) {
                 TextButton(onClick = {
                     // Handle the confirmed input here
                     showInputDialog = false
-                    reps.add(numberInput.toInt())
+                    viewModel.addRep(numberInput.toLong())
                 }) {
                     Text("OK")
                 }
@@ -167,7 +162,7 @@ fun HomeScreen(timerUseCase: TimerUseCase) {
                     ) {
                         CircleBubble("${reps[it]}") { text ->
                             text.toIntOrNull()?.let { number ->
-                                reps.remove(number)
+                                viewModel.removeRep(number.toLong())
                             }
                         }
                     }
@@ -267,8 +262,7 @@ fun HomeScreen(timerUseCase: TimerUseCase) {
                 repsList.forEach {
                     Button(
                         onClick = {
-                            reps.add(it)
-                            timerUseCase.insertRep(it.toLong())
+                            viewModel.addRep(it.toLong())
                         },
                         shape = CircleShape,
                         modifier = Modifier.size(repsButtonDiameter.dp),
