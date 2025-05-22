@@ -57,12 +57,14 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(libs.koin.core)
             implementation(libs.coroutines.core)
+            implementation(libs.sqldelight.coroutines.extensions)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.sqldelight.sqlite.driver)
             implementation(libs.koin.core)
+            implementation(libs.slf4j.simple)
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)

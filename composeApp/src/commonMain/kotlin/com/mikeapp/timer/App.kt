@@ -2,14 +2,13 @@ package com.mikeapp.timer
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import com.mikeapp.timer.domain.TimerUseCase
 import com.mikeapp.timer.ui.HomeScreen
 import com.mikeapp.timer.ui.theme.GreenTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App(timerUseCase: TimerUseCase) {
+fun App() {
     MaterialTheme {
         GreenTheme {
 //        LightBlueTheme {
@@ -19,7 +18,7 @@ fun App(timerUseCase: TimerUseCase) {
 //        PinkTheme {
 //        DeepPurpleTheme {
 //        RedTheme {
-            HomeScreen(timerUseCase)
+            HomeScreen()
         }
     }
 }

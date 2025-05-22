@@ -1,5 +1,11 @@
 package com.mikeapp.timer.database
 
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
+
 class DatabaseHelper(driverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(driverFactory.createDriver())
     private val timerConfigQueries = database.timerConfigQueries
@@ -58,5 +64,11 @@ class DatabaseHelper(driverFactory: DatabaseDriverFactory) {
     /** Returns all reps records ordered by ID. */
     fun getAllReps(): List<Reps_record> {
         return repsRecordQueries.selectAllReps().executeAsList()
+    }
+
+    fun observeAllReps(): Flow<List<Reps_record>> {
+        return repsRecordQueries.selectAllReps()
+            .asFlow()
+            .mapToList(Dispatchers.IO) // Use proper dispatcher for DB reads
     }
 }
