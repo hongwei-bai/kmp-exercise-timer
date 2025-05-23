@@ -21,6 +21,7 @@ kotlinxDatetime = "0.5.0"
 lifecycleRuntimeKtx = "2.7.0"
 lifecycleCommonJava8 = "2.7.0"
 lifecycleProcess = "2.7.0"
+materialIconsExtended = "1.7.3"
 slf4jSimple = "2.0.9"
 sqldelight = "2.0.1"
 koin = "3.5.3"
@@ -45,6 +46,8 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+compose-material = { group = "org.jetbrains.compose.material", name = "material", version.ref = "materialIconsExtended" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4jSimple" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }

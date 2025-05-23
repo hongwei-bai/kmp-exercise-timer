@@ -1,4 +1,3 @@
-
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -33,7 +32,9 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
-        val desktopMain by getting
+        val desktopMain by getting {
+            resources.srcDir("src/desktopMain/resources")
+        }
 
         androidMain.dependencies {
             implementation(compose.preview)
@@ -58,6 +59,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.coroutines.core)
             implementation(libs.sqldelight.coroutines.extensions)
+            implementation(libs.material.icons.extended)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -128,4 +130,8 @@ sqldelight {
 
     // Optional: Link SQLDelight with Kotlin/Native memory model
     linkSqlite.set(true)
+}
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // or INCLUDE if needed
 }
