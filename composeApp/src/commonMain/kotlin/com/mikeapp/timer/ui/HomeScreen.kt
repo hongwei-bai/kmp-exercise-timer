@@ -4,21 +4,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAlarm
+import androidx.compose.material.icons.filled.AddAlert
+import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikeapp.timer.lifecycle.AppLifecycle
 import com.mikeapp.timer.notification.Notification
-import com.mikeapp.timer.ui.component.CircleBubble
-import com.mikeapp.timer.ui.component.HalfCircleButtonPair
-import com.mikeapp.timer.ui.component.TimerProgressBar
+import com.mikeapp.timer.ui.component.*
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -36,14 +35,13 @@ fun HomeScreen() {
 
     var currentTime by remember { mutableStateOf(getCurrentTime()) }
     val timeRecords = remember { mutableStateListOf<String>() }
-//    val reps = remember { mutableStateListOf<Int>() }
-    var showDialog by remember { mutableStateOf(false) }
+    var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var showInputDialog by remember { mutableStateOf(false) }
 
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
     val progressBarDividerMinute = remember { mutableIntStateOf(2) }
 
-    val lifecycle = remember { _root_ide_package_.com.mikeapp.timer.lifecycle.AppLifecycle() }
+    val lifecycle = remember { AppLifecycle() }
     LaunchedEffect(Unit) {
         lifecycle.observeLifecycle(
             onEnterForeground = {
@@ -63,66 +61,26 @@ fun HomeScreen() {
         }
     }
 
-    if (showDialog) {
+    if (showClearConfirmationDialog) {
         Notification.showNotification("test", "<UNK> <UNK> <UNK>")
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text("Confirmation") },
-            text = { Text("Are you sure you want to clear all records?") },
-            confirmButton = {
-                Button(onClick = {
-                    showDialog = false
-                    // Handle confirm action here
-                    timeRecords.clear()
-                    viewModel.clearReps()
-                }) {
-                    Text("Confirm Clear")
-                }
-            },
-            dismissButton = {
-                Button(onClick = { showDialog = false }) {
-                    Text("Cancel")
-                }
+        ClearAlertDialog(
+            onDismiss = {
+                showClearConfirmationDialog = false
             }
-        )
+        ) {
+            timeRecords.clear()
+            viewModel.clearReps()
+        }
     }
 
     if (showInputDialog) {
-        var numberInput by remember { mutableStateOf("") }
-        AlertDialog(
-            onDismissRequest = { showInputDialog = false },
-            title = { Text("Enter a Number") },
-            text = {
-                OutlinedTextField(
-                    value = numberInput,
-                    onValueChange = { input: String ->
-                        if (input.all { it.isDigit() }) {
-                            numberInput = input
-                        }
-                    },
-                    label = { Text("Number") },
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Number
-                    )
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    // Handle the confirmed input here
-                    showInputDialog = false
-                    viewModel.addRep(numberInput.toLong())
-                }) {
-                    Text("OK")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    showInputDialog = false
-                }) {
-                    Text("Cancel")
-                }
+        RepInputDialog(
+            onDismiss = {
+                showInputDialog = false
             }
-        )
+        ) {
+            viewModel.addRep(it)
+        }
     }
 
     Column(
@@ -160,11 +118,15 @@ fun HomeScreen() {
                         modifier = Modifier
                             .padding(4.dp)
                     ) {
-                        CircleBubble("${reps[it]}") { text ->
-                            text.toIntOrNull()?.let { number ->
-                                viewModel.removeRep(number.toLong())
-                            }
-                        }
+                        CircleBubble(
+                            "${reps[it]}",
+                            onClick = { text ->
+                                text.toIntOrNull()?.let { number ->
+                                    viewModel.removeRep(number.toLong())
+                                }
+                            },
+                            isSelected = false
+                        )
                     }
                 }
             }
@@ -175,10 +137,8 @@ fun HomeScreen() {
             modifier = Modifier.fillMaxWidth()
                 .weight(0.6f)
         ) {
-            Text(
-                text = currentTime,
-                fontSize = 64.sp,
-                fontWeight = FontWeight.Bold,
+            BigTimerTile(
+                currentTime = currentTime,
                 modifier = Modifier.weight(0.2f)
             )
 
@@ -197,97 +157,29 @@ fun HomeScreen() {
                 )
             }
 
-            // main buttons: withdraw/Tap/clear
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-                    .weight(0.4f)
-            ) {
-                Button(
-                    onClick = {
-                        if (timeRecords.isNotEmpty()) {
-                            timeRecords.removeLast()
-                        }
-                    },
-                    shape = CircleShape,
-                    modifier = Modifier.size(84.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.surface) // Material 2 surface color
-                ) {
-                    Text("Withdraw", color = MaterialTheme.colors.onSurface, fontSize = 9.sp) // Material 2 text color
-                }
-
-                Spacer(Modifier.width(16.dp))
-
-                Button(
-                    onClick = {
-                        baselineTimeLong = getCurrentTimeLong()
-                        timeRecords.add(currentTime)
-                    },
-                    shape = CircleShape,
-                    modifier = Modifier.size(160.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary) // Material 2 primary color
-                ) {
-                    Text("Tap", color = MaterialTheme.colors.onPrimary, fontSize = 24.sp) // Material 2 onPrimary color
-                }
-
-                Spacer(Modifier.width(32.dp))
-
-                Button(
-                    onClick = {
-                        showDialog = true
-                    },
-                    shape = CircleShape,
-                    modifier = Modifier.size(64.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.surface) // Material 2 surface color
-                ) {
-                    Text("Clear", color = MaterialTheme.colors.onSurface, fontSize = 11.sp)
-                }
-            }
+            BigTapButtonGroup(
+                onTapClick = {
+                    baselineTimeLong = getCurrentTimeLong()
+                    timeRecords.add(currentTime)
+                },
+                onWithdrawClick = {
+                    if (timeRecords.isNotEmpty()) {
+                        timeRecords.removeLast()
+                    }
+                },
+                onClearClick = { showClearConfirmationDialog = true },
+                modifier = Modifier.weight(0.4f)
+            )
 
             Spacer(modifier = Modifier.weight(0.02f))
 
             // reps buttons
-            val repsList = listOf(12, 20, 30, 40)
-            val repsButtonDiameter = 64
-            val repsButtonTextSize = 12
-            val paddingBetweenReps = 12
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
+            RepsButtonGroup(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 12.dp)
-                    .weight(0.15f)
-            ) {
-                repsList.forEach {
-                    Button(
-                        onClick = {
-                            viewModel.addRep(it.toLong())
-                        },
-                        shape = CircleShape,
-                        modifier = Modifier.size(repsButtonDiameter.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary) // Material 2 secondary color
-                    ) {
-                        Text(
-                            "+$it",
-                            color = MaterialTheme.colors.onSecondary,
-                            fontSize = repsButtonTextSize.sp
-                        ) // Material 2 onSecondary color
-                    }
-                    Spacer(Modifier.width(paddingBetweenReps.dp))
-                }
-
-                Button(
-                    onClick = {
-                        showInputDialog = true
-                    },
-                    shape = CircleShape,
-                    modifier = Modifier.size(repsButtonDiameter.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-                ) {
-                    Text("+?", color = MaterialTheme.colors.onSecondary, fontSize = repsButtonTextSize.sp)
-                }
-            }
+                    .weight(0.15f),
+                onCustomisedRepButtonClick = { showInputDialog = true }
+            ) { viewModel.addRep(it.toLong()) }
 
             //settings buttons
             Row(
@@ -298,8 +190,8 @@ fun HomeScreen() {
                     .weight(0.24f)
             ) {
                 HalfCircleButtonPair(
-                    topButtonName = "+Warning",
-                    bottomButtonName = "-Warning",
+                    topIcon = Icons.Filled.AddAlert,
+                    bottomIcon = Icons.Filled.RemoveCircle,
                     onTopClick = {
                         if (progressBarDividerMinute.intValue < progressBarMaxMinute.intValue) {
                             progressBarDividerMinute.intValue += 1
@@ -313,8 +205,8 @@ fun HomeScreen() {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 HalfCircleButtonPair(
-                    topButtonName = "+Total",
-                    bottomButtonName = "-Total",
+                    topIcon = Icons.Filled.AddAlarm,
+                    bottomIcon = Icons.Filled.RemoveCircle,
                     onTopClick = {
                         progressBarMaxMinute.intValue += 1
                     },

@@ -1,5 +1,6 @@
 package com.mikeapp.timer
 
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -18,7 +19,8 @@ fun main() = application {
         state = rememberWindowState(
             width = 412.dp,
             height = 915.dp
-        )
+        ),
+        icon = painterResource("icon.ico")
     ) {
         App()
     }

@@ -1,0 +1,7 @@
+<svg width="32" height="48" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Half circle background (right half) -->
+    <path d="M16 8 A16 16 0 0 1 16 40 Z" fill="currentColor" opacity="0.1"/>
+
+    <!-- Left chevron for expand -->
+    <path d="M20 16L12 24L20 32" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
