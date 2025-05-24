@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.Clock
 
 @Composable
 fun HalfCircleButtonPair(
@@ -29,6 +30,7 @@ fun HalfCircleButtonPair(
     bottomIcon: ImageVector,
     onTopClick: () -> Unit,
     onBottomClick: () -> Unit,
+    onLongClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val diameter = 96.dp
@@ -98,12 +100,30 @@ fun HalfCircleButtonPair(
                         }
                         .background(topGradient)
                         .pointerInput(Unit) {
+                            var longClickFired = false
                             detectTapGestures(
                                 onPress = {
-                                    isTopPressed = true
-                                    val released = tryAwaitRelease()
-                                    isTopPressed = false
-                                    if (released) onTopClick()
+                                    longClickFired = false
+
+                                    val pressStartTime = Clock.System.now().toEpochMilliseconds()
+                                    val released = try {
+                                        // Wait for release or cancellation
+                                        val success = tryAwaitRelease()
+                                        val pressDuration = Clock.System.now().toEpochMilliseconds() - pressStartTime
+
+                                        if (!longClickFired && pressDuration < 1000) {
+                                            // Only act if longClick hasn't already fired
+                                            onTopClick.invoke()
+                                        }
+
+                                        success
+                                    } finally {
+                                        // Clean-up or additional logic here
+                                    }
+                                },
+                                onLongPress = {
+                                    longClickFired = true
+                                    onLongClick.invoke()
                                 }
                             )
                         },
@@ -135,12 +155,30 @@ fun HalfCircleButtonPair(
                         }
                         .background(bottomGradient)
                         .pointerInput(Unit) {
+                            var longClickFired = false
                             detectTapGestures(
                                 onPress = {
-                                    isBottomPressed = true
-                                    val released = tryAwaitRelease()
-                                    isBottomPressed = false
-                                    if (released) onBottomClick()
+                                    longClickFired = false
+
+                                    val pressStartTime = Clock.System.now().toEpochMilliseconds()
+                                    val released = try {
+                                        // Wait for release or cancellation
+                                        val success = tryAwaitRelease()
+                                        val pressDuration =Clock.System.now().toEpochMilliseconds() - pressStartTime
+
+                                        if (!longClickFired && pressDuration < 1000) {
+                                            // Only act if longClick hasn't already fired
+                                            onBottomClick.invoke()
+                                        }
+
+                                        success
+                                    } finally {
+                                        // Clean-up or additional logic here
+                                    }
+                                },
+                                onLongPress = {
+                                    longClickFired = true
+                                    onLongClick.invoke()
                                 }
                             )
                         },
@@ -167,15 +205,15 @@ fun HalfCircleButtonPair(
             modifier = Modifier
                 .size(10.dp)
                 .shadow(2.dp, CircleShape)
-                .background(MaterialTheme.colors.primaryVariant, CircleShape)
+                .background(MaterialTheme.colors.secondary, CircleShape)
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            MaterialTheme.colors.primaryVariant.copy(alpha = 0.7f),
-                            MaterialTheme.colors.primaryVariant.copy(alpha = 0.5f),
-                            MaterialTheme.colors.primaryVariant.copy(alpha = 0.3f),
-                            MaterialTheme.colors.primaryVariant.copy(alpha = 0.1f),
-                            MaterialTheme.colors.primaryVariant.copy(alpha = 0.01f)
+                            MaterialTheme.colors.secondary.copy(alpha = 0.7f),
+                            MaterialTheme.colors.secondary.copy(alpha = 0.5f),
+                            MaterialTheme.colors.secondary.copy(alpha = 0.3f),
+                            MaterialTheme.colors.secondary.copy(alpha = 0.1f),
+                            MaterialTheme.colors.secondary.copy(alpha = 0.01f)
                         )
                     ),
                     shape = CircleShape

@@ -16,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.roundToInt
 
 @Composable
 fun TimerProgressBar(
@@ -37,13 +39,25 @@ fun TimerProgressBar(
     val animatedProgress by animateFloatAsState(progress)
 
     val trackColor = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
-    val dividerColor = MaterialTheme.colors.onSurface.copy(alpha = 0.3f)
     val textColor = MaterialTheme.colors.onSurface
     val dividerTime = dividerMinute * 60 * 1000L
-    val progressColor = if (currentTime < dividerTime) {
-        MaterialTheme.colors.primary // Green
-    } else {
-        MaterialTheme.colors.error // Red
+    val totalTime = totalMinutes * 60 * 1000L
+
+    var progressColor: Color
+    var dividerColor: Color
+    when {
+        currentTime < dividerTime -> {
+            progressColor = MaterialTheme.colors.primary
+            dividerColor = MaterialTheme.colors.primary.copy(alpha = 0.3f)
+        }
+        currentTime <= totalTime -> {
+            progressColor = MaterialTheme.colors.secondary
+            dividerColor = MaterialTheme.colors.secondaryVariant.copy(alpha = 0.3f)
+        }
+        else -> {
+            progressColor= MaterialTheme.colors.secondaryVariant
+            dividerColor = MaterialTheme.colors.secondary.copy(alpha = 0.3f)
+        }
     }
     if (dividerMinute > lastWarnedMinutes && currentTime >= dividerTime) {
         lastWarnedMinutes = dividerMinute
@@ -102,14 +116,14 @@ fun TimerProgressBar(
                     .padding(top = 4.dp)
             ) {
                 Text(
-                    text = "$dividerMinute min",
+                    text = formatDurationFlexible(dividerMinute),
                     color = textColor,
                     fontSize = 12.sp,
                     modifier = Modifier
                         .absoluteOffset(x = dividerPositionDp - 16.dp)
                 )
                 Text(
-                    text = "$totalMinutes min",
+                    text = formatDurationFlexible(totalMinutes),
                     color = textColor,
                     fontSize = 12.sp,
                     modifier = Modifier.align(Alignment.CenterEnd)
@@ -117,4 +131,25 @@ fun TimerProgressBar(
             }
         }
     }
+}
+
+fun formatDurationFlexible(totalMinutes: Int): String {
+    val parts = mutableListOf<String>()
+
+    val days = totalMinutes / (24 * 60)
+    val remainingMinutes = totalMinutes % (24 * 60)
+    val fractionalHours = remainingMinutes / 60.0
+
+    if (days > 0) {
+        parts.add("${days}d")
+    }
+
+    if (fractionalHours >= 1) {
+        val rounded = (fractionalHours * 10).roundToInt() / 10.0
+        parts.add("$rounded ${if (rounded == 1.0) "hour" else "hours"}")
+    } else if (totalMinutes > 0 || parts.isEmpty()) {
+        parts.add("$totalMinutes ${if (totalMinutes == 1) "min" else "mins"}")
+    }
+
+    return parts.joinToString(" ")
 }
