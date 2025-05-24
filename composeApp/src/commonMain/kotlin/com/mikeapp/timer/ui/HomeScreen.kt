@@ -7,9 +7,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddAlarm
-import androidx.compose.material.icons.filled.AddAlert
-import androidx.compose.material.icons.filled.RemoveCircle
+import androidx.compose.material.icons.outlined.AddAlarm
+import androidx.compose.material.icons.outlined.AddAlert
+import androidx.compose.material.icons.outlined.RemoveCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +37,8 @@ fun HomeScreen() {
     val timeRecords = remember { mutableStateListOf<String>() }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var showInputDialog by remember { mutableStateOf(false) }
+    var showWarningInputDialog by remember { mutableStateOf(false) }
+    var showAlarmInputDialog by remember { mutableStateOf(false) }
 
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
     val progressBarDividerMinute = remember { mutableIntStateOf(2) }
@@ -62,7 +64,6 @@ fun HomeScreen() {
     }
 
     if (showClearConfirmationDialog) {
-        Notification.showNotification("test", "<UNK> <UNK> <UNK>")
         ClearAlertDialog(
             onDismiss = {
                 showClearConfirmationDialog = false
@@ -83,6 +84,26 @@ fun HomeScreen() {
         }
     }
 
+    if (showWarningInputDialog) {
+        TimeInputDialog(
+            initMinutes = progressBarDividerMinute.intValue,
+            onDismiss = { showWarningInputDialog = false },
+            onConfirm = { minutes ->
+                progressBarDividerMinute.value = minutes
+            }
+        )
+    }
+
+    if (showAlarmInputDialog) {
+        TimeInputDialog(
+            initMinutes = progressBarMaxMinute.intValue,
+            onDismiss = { showAlarmInputDialog = false },
+            onConfirm = { minutes ->
+                progressBarMaxMinute.value = minutes
+            }
+        )
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -96,7 +117,7 @@ fun HomeScreen() {
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 32.dp, horizontal = 16.dp)
+                    .padding(vertical = 12.dp, horizontal = 16.dp)
                     .heightIn(min = 240.dp)
                     .weight(0.4f)
                     .verticalScroll(rememberScrollState())
@@ -181,6 +202,8 @@ fun HomeScreen() {
                 onCustomisedRepButtonClick = { showInputDialog = true }
             ) { viewModel.addRep(it.toLong()) }
 
+            Spacer(modifier = Modifier.weight(0.02f))
+
             //settings buttons
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -190,8 +213,8 @@ fun HomeScreen() {
                     .weight(0.24f)
             ) {
                 HalfCircleButtonPair(
-                    topIcon = Icons.Filled.AddAlert,
-                    bottomIcon = Icons.Filled.RemoveCircle,
+                    topIcon = Icons.Outlined.AddAlarm,
+                    bottomIcon = Icons.Outlined.RemoveCircle,
                     onTopClick = {
                         if (progressBarDividerMinute.intValue < progressBarMaxMinute.intValue) {
                             progressBarDividerMinute.intValue += 1
@@ -201,12 +224,15 @@ fun HomeScreen() {
                         if (progressBarDividerMinute.intValue > 0) {
                             progressBarDividerMinute.intValue -= 1
                         }
+                    },
+                    onLongClick = {
+                        showWarningInputDialog = true
                     }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 HalfCircleButtonPair(
-                    topIcon = Icons.Filled.AddAlarm,
-                    bottomIcon = Icons.Filled.RemoveCircle,
+                    topIcon = Icons.Outlined.AddAlert,
+                    bottomIcon = Icons.Outlined.RemoveCircle,
                     onTopClick = {
                         progressBarMaxMinute.intValue += 1
                     },
@@ -217,12 +243,15 @@ fun HomeScreen() {
                                 progressBarDividerMinute.intValue = progressBarMaxMinute.intValue
                             }
                         }
+                    },
+                    onLongClick = {
+                        showAlarmInputDialog = true
                     }
                 )
             }
         }
 
-        Spacer(modifier = Modifier.weight(0.1f))
+        Spacer(modifier = Modifier.weight(0.05f))
     }
 }
 

@@ -30,9 +30,10 @@ fun BigTapButtonGroup(
             },
             shape = CircleShape,
             modifier = Modifier.size(84.dp),
+            contentPadding = PaddingValues(0.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.surface) // Material 2 surface color
         ) {
-            Text("Withdraw", color = MaterialTheme.colors.onSurface, fontSize = 9.sp) // Material 2 text color
+            Text("Withdraw", color = MaterialTheme.colors.onSurface, fontSize = 12.sp) // Material 2 text color
         }
 
         Spacer(Modifier.width(16.dp))
@@ -43,9 +44,10 @@ fun BigTapButtonGroup(
             },
             shape = CircleShape,
             modifier = Modifier.size(160.dp),
+            contentPadding = PaddingValues(0.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary) // Material 2 primary color
         ) {
-            Text("Tap", color = MaterialTheme.colors.onPrimary, fontSize = 24.sp) // Material 2 onPrimary color
+            Text("Tap", color = MaterialTheme.colors.onPrimary, fontSize = 32.sp) // Material 2 onPrimary color
         }
 
         Spacer(Modifier.width(32.dp))
@@ -56,9 +58,10 @@ fun BigTapButtonGroup(
             },
             shape = CircleShape,
             modifier = Modifier.size(64.dp),
+            contentPadding = PaddingValues(0.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.surface) // Material 2 surface color
         ) {
-            Text("Clear", color = MaterialTheme.colors.onSurface, fontSize = 11.sp)
+            Text("Clear", color = MaterialTheme.colors.onSurface, fontSize = 12.sp)
         }
     }
 }
