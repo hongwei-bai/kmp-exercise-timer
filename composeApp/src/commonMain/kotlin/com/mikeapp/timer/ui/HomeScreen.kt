@@ -1,11 +1,6 @@
 package com.mikeapp.timer.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddAlarm
 import androidx.compose.material.icons.outlined.AddAlert
@@ -14,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mikeapp.timer.lifecycle.AppLifecycle
 import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
@@ -43,16 +37,13 @@ fun HomeScreen() {
     var showWarningInputDialog by remember { mutableStateOf(false) }
     var showAlarmInputDialog by remember { mutableStateOf(false) }
 
-    // Useful? - TBD
-    var baselineTimeLong by remember { mutableStateOf(0L) }
-
     // For Alarms
     var warningState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
     var alarmState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
-    val isDividerMuted = remember { mutableStateOf(false) }
-    val isEndMuted = remember { mutableStateOf(false) }
+    val isDividerMuted = remember { mutableStateOf(true) }
+    val isAlarmMuted = remember { mutableStateOf(false) }
 
-//    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
     when (warningState) {
         is AlarmState.Active -> if (currentTimeLong >= (warningState as AlarmState.Active).alarmTime) {
             warningState = AlarmState.Alarming
@@ -83,15 +74,13 @@ fun HomeScreen() {
     fun onWarnConfigChanged() {
         val lastTimeRecord = timeRecords.lastOrNull() ?: return
         val comingAlarmTime = lastTimeRecord + (progressBarDividerMinute.intValue * MS_PER_MINUTE)
-        if (isDividerMuted.value) {
-            if (warningState is AlarmState.Active) {
-                warningState = AlarmState.Paused((warningState as AlarmState.Active).alarmTime)
-            } else {
-                warningState = AlarmState.Paused(0)
-            }
-        } else when (warningState) {
+        when (warningState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
-                warningState = AlarmState.Active(comingAlarmTime)
+                if (isDividerMuted.value) {
+                    warningState = AlarmState.Paused(comingAlarmTime)
+                } else {
+                    warningState = AlarmState.Active(comingAlarmTime)
+                }
             }
 
             is AlarmState.Active -> warningState = if (comingAlarmTime > currentTimeLong) {
@@ -112,18 +101,28 @@ fun HomeScreen() {
         }
     }
 
+    fun onWarnMuteChanged(isActive: Boolean) {
+        when {
+            isActive && warningState is AlarmState.Paused -> {
+                warningState = AlarmState.Active((warningState as AlarmState.Paused).alarmTime)
+            }
+
+            !isActive && warningState is AlarmState.Active -> {
+                warningState = AlarmState.Paused((warningState as AlarmState.Active).alarmTime)
+            }
+        }
+    }
+
     fun onAlarmConfigChanged() {
         val lastTimeRecord = timeRecords.lastOrNull() ?: return
         val comingAlarmTime = lastTimeRecord + (progressBarMaxMinute.intValue * MS_PER_MINUTE)
-        if (isEndMuted.value) {
-            if (alarmState is AlarmState.Active) {
-                alarmState = AlarmState.Paused((alarmState as AlarmState.Active).alarmTime)
-            } else {
-                alarmState = AlarmState.Paused(0)
-            }
-        } else when (alarmState) {
+        when (alarmState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
-                alarmState = AlarmState.Active(comingAlarmTime)
+                if (isDividerMuted.value) {
+                    alarmState = AlarmState.Paused(comingAlarmTime)
+                } else {
+                    alarmState = AlarmState.Active(comingAlarmTime)
+                }
             }
 
             is AlarmState.Active -> alarmState = if (comingAlarmTime > currentTimeLong) {
@@ -140,6 +139,18 @@ fun HomeScreen() {
 
             is AlarmState.Paused -> if (comingAlarmTime > currentTimeLong) {
                 alarmState = AlarmState.Paused(comingAlarmTime)
+            }
+        }
+    }
+
+    fun onAlarmMuteChanged(isActive: Boolean) {
+        when {
+            isActive && alarmState is AlarmState.Paused -> {
+                alarmState = AlarmState.Active((alarmState as AlarmState.Paused).alarmTime)
+            }
+
+            !isActive && alarmState is AlarmState.Active -> {
+                alarmState = AlarmState.Paused((alarmState as AlarmState.Active).alarmTime)
             }
         }
     }
@@ -213,52 +224,30 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        // Top row area for time records + reps - weight 0.3 height of screen height
         Row(
             modifier = Modifier.fillMaxWidth()
                 .weight(HomeScreenConfig.homeScreenTopRecordHeightWeight)
         ) {
-            Column(
-                horizontalAlignment = Alignment.Start,
+            TimeRecordsColumn(
+                timeRecords = timeRecords,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 12.dp, horizontal = 16.dp)
                     .heightIn(min = 240.dp)
                     .weight(0.4f)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                timeRecords.forEach {
-                    Text(text = formatMillisTo24hTime(it), fontSize = 24.sp)
-                }
-            }
+            )
 
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 56.dp),
+            RepsColumn(
+                reps = reps,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .weight(0.5f)
             ) {
-                items(reps.size) {
-                    Box(
-                        modifier = Modifier
-                            .padding(4.dp)
-                    ) {
-                        CircleBubble(
-                            "${reps[it]}",
-                            onClick = { text ->
-                                text.toIntOrNull()?.let { number ->
-                                    reps.remove(number.toLong())
-                                }
-                            },
-                            isSelected = false
-                        )
-                    }
-                }
+                reps.remove(it.toLong())
             }
         }
 
-        // The rest button area - take 0.7 weight of screen height
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
@@ -272,25 +261,24 @@ fun HomeScreen() {
             if (timeRecords.isNotEmpty()) {
                 TimerProgressBar(
                     totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
-                    currentTime = currentTimeLong - baselineTimeLong,
+                    currentTime = currentTimeLong - timeRecords.last(),
                     totalMinutes = progressBarMaxMinute.intValue,
                     dividerMinute = progressBarDividerMinute.intValue,
                     isDividerMuted = isDividerMuted.value,
-                    isEndMuted = isEndMuted.value,
+                    isEndMuted = isAlarmMuted.value,
                     onDividerBellClicked = {
                         isDividerMuted.value = !isDividerMuted.value
-                        onWarnConfigChanged()
+                        onWarnMuteChanged(!isDividerMuted.value)
                     },
                     onAlarmBellClicked = {
-                        isEndMuted.value = !isEndMuted.value
-                        onAlarmConfigChanged()
+                        isAlarmMuted.value = !isAlarmMuted.value
+                        onAlarmMuteChanged(!isAlarmMuted.value)
                     }
                 )
             }
 
             BigTapButtonGroup(
                 onTapClick = {
-                    baselineTimeLong = getCurrentTimeLong()
                     timeRecords.add(currentTimeLong)
                     onWarnConfigChanged()
                     onAlarmConfigChanged()
@@ -347,7 +335,7 @@ fun HomeScreen() {
                         showWarningInputDialog = true
                     }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(24.dp))
                 HalfCircleButtonPair(
                     topIcon = Icons.Outlined.AddAlert,
                     bottomIcon = Icons.Outlined.RemoveCircle,

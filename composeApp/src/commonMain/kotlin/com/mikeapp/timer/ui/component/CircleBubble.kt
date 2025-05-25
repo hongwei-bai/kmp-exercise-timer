@@ -22,6 +22,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikeapp.timer.ui.HomeScreenConfig.repRecordBubbleSizeDp
 
 @Composable
 fun CircleBubble(
@@ -72,7 +73,7 @@ fun CircleBubble(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(56.dp)
+            .size(repRecordBubbleSizeDp.dp)
             .scale(scale * selectionScale)
             .shadow(
                 elevation = if (isSelected) 12.dp else 6.dp,
