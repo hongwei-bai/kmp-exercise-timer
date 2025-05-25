@@ -1,7 +1,7 @@
 -- time_record.sq
 CREATE TABLE time_record (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  time TEXT NOT NULL
+  time INTEGER NOT NULL
 );
 
 -- Add a new time record

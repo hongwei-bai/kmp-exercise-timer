@@ -17,31 +17,118 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mikeapp.timer.lifecycle.AppLifecycle
 import com.mikeapp.timer.notification.Notification
+import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
+import com.mikeapp.timer.ui.util.MS_PER_MINUTE
+import com.mikeapp.timer.ui.util.formatMillisTo24hTime
+import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import kotlinx.coroutines.delay
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.koin.mp.KoinPlatform.getKoin
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen() {
     val viewModel: TimerViewModel = getKoin().get()
-    val reps by viewModel.reps.collectAsState(emptyList())
 
-    var baselineTimeLong by remember { mutableStateOf(0L) }
+    // Ui state
     var currentTimeLong by remember { mutableStateOf(0L) }
+    val timeRecords = remember { mutableStateListOf<Long>() }
+    val reps = remember { mutableStateListOf<Long>() }
+    val progressBarMaxMinute = remember { mutableIntStateOf(3) }
+    val progressBarDividerMinute = remember { mutableIntStateOf(2) }
 
-    var currentTime by remember { mutableStateOf(getCurrentTime()) }
-    val timeRecords = remember { mutableStateListOf<String>() }
+    // Dialog flags
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var showInputDialog by remember { mutableStateOf(false) }
     var showWarningInputDialog by remember { mutableStateOf(false) }
     var showAlarmInputDialog by remember { mutableStateOf(false) }
 
-    val progressBarMaxMinute = remember { mutableIntStateOf(3) }
-    val progressBarDividerMinute = remember { mutableIntStateOf(2) }
+    // Useful? - TBD
+    var baselineTimeLong by remember { mutableStateOf(0L) }
+
+    // For Alarms
+    var warningState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
+    var alarmState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
+
+//    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+    when (warningState) {
+        is AlarmState.Active -> if (currentTimeLong >= (warningState as AlarmState.Active).alarmTime) {
+            warningState = AlarmState.Alarming
+        }
+
+        AlarmState.Alarming -> {
+            Notification.showNotification("Reminder", "Reminder time is coming!")
+            warningState = AlarmState.Inactive
+        }
+
+        else -> Unit
+    }
+
+//    println("alarmState: $alarmState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+    when (alarmState) {
+        is AlarmState.Active -> if (currentTimeLong >= (alarmState as AlarmState.Active).alarmTime) {
+            alarmState = AlarmState.Alarming
+        }
+
+        AlarmState.Alarming -> {
+            Notification.showNotification("Alarm", "Time is up!!!!!!!!!!!!!!!")
+            alarmState = AlarmState.Inactive
+        }
+
+        else -> Unit
+    }
+
+    fun onWarnConfigChanged() {
+        val lastTimeRecord = timeRecords.lastOrNull() ?: return
+        val comingAlarmTime = lastTimeRecord + (progressBarDividerMinute.intValue * MS_PER_MINUTE)
+        when (warningState) {
+            AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
+                warningState = AlarmState.Active(comingAlarmTime)
+            }
+
+            is AlarmState.Active -> warningState = if (comingAlarmTime > currentTimeLong) {
+                AlarmState.Active(comingAlarmTime)
+            } else {
+                AlarmState.Inactive
+            }
+
+            AlarmState.Alarming -> warningState = if (comingAlarmTime > currentTimeLong) {
+                AlarmState.Active(comingAlarmTime)
+            } else {
+                AlarmState.Inactive
+            }
+
+            is AlarmState.Paused -> if (comingAlarmTime > currentTimeLong) {
+                warningState = AlarmState.Paused(comingAlarmTime)
+            }
+        }
+    }
+
+    fun onAlarmConfigChanged() {
+        val lastTimeRecord = timeRecords.lastOrNull() ?: return
+        val comingAlarmTime = lastTimeRecord + (progressBarMaxMinute.intValue * MS_PER_MINUTE)
+        when (alarmState) {
+            AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
+                alarmState = AlarmState.Active(comingAlarmTime)
+            }
+
+            is AlarmState.Active -> alarmState = if (comingAlarmTime > currentTimeLong) {
+                AlarmState.Active(comingAlarmTime)
+            } else {
+                AlarmState.Inactive
+            }
+
+            AlarmState.Alarming -> alarmState = if (comingAlarmTime > currentTimeLong) {
+                AlarmState.Active(comingAlarmTime)
+            } else {
+                AlarmState.Inactive
+            }
+
+            is AlarmState.Paused -> if (comingAlarmTime > currentTimeLong) {
+                alarmState = AlarmState.Paused(comingAlarmTime)
+            }
+        }
+    }
 
     val lifecycle = remember { AppLifecycle() }
     LaunchedEffect(Unit) {
@@ -58,7 +145,6 @@ fun HomeScreen() {
     LaunchedEffect(Unit) {
         while (true) {
             delay(1000)
-            currentTime = getCurrentTime()
             currentTimeLong = getCurrentTimeLong()
         }
     }
@@ -70,7 +156,9 @@ fun HomeScreen() {
             }
         ) {
             timeRecords.clear()
-            viewModel.clearReps()
+            reps.clear()
+            onWarnConfigChanged()
+            onAlarmConfigChanged()
         }
     }
 
@@ -80,7 +168,7 @@ fun HomeScreen() {
                 showInputDialog = false
             }
         ) {
-            viewModel.addRep(it)
+            reps.add(it)
         }
     }
 
@@ -90,6 +178,7 @@ fun HomeScreen() {
             onDismiss = { showWarningInputDialog = false },
             onConfirm = { minutes ->
                 progressBarDividerMinute.value = minutes
+                onWarnConfigChanged()
             }
         )
     }
@@ -100,6 +189,7 @@ fun HomeScreen() {
             onDismiss = { showAlarmInputDialog = false },
             onConfirm = { minutes ->
                 progressBarMaxMinute.value = minutes
+                onAlarmConfigChanged()
             }
         )
     }
@@ -109,9 +199,10 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
+        // Top row area for time records + reps - weight 0.3 height of screen height
         Row(
             modifier = Modifier.fillMaxWidth()
-                .weight(0.4f)
+                .weight(HomeScreenConfig.homeScreenTopRecordHeightWeight)
         ) {
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -123,7 +214,7 @@ fun HomeScreen() {
                     .verticalScroll(rememberScrollState())
             ) {
                 timeRecords.forEach {
-                    Text(text = it, fontSize = 24.sp)
+                    Text(text = formatMillisTo24hTime(it), fontSize = 24.sp)
                 }
             }
 
@@ -131,7 +222,7 @@ fun HomeScreen() {
                 columns = GridCells.Adaptive(minSize = 56.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 32.dp, horizontal = 16.dp)
+                    .padding(horizontal = 16.dp)
                     .weight(0.5f)
             ) {
                 items(reps.size) {
@@ -143,7 +234,7 @@ fun HomeScreen() {
                             "${reps[it]}",
                             onClick = { text ->
                                 text.toIntOrNull()?.let { number ->
-                                    viewModel.removeRep(number.toLong())
+                                    reps.remove(number.toLong())
                                 }
                             },
                             isSelected = false
@@ -153,13 +244,14 @@ fun HomeScreen() {
             }
         }
 
+        // The rest button area - take 0.7 weight of screen height
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
-                .weight(0.6f)
+                .weight(HomeScreenConfig.homeScreenBottomButtonheightWeight)
         ) {
             BigTimerTile(
-                currentTime = currentTime,
+                currentTimeLong = currentTimeLong,
                 modifier = Modifier.weight(0.2f)
             )
 
@@ -168,24 +260,22 @@ fun HomeScreen() {
                     totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
                     currentTime = currentTimeLong - baselineTimeLong,
                     totalMinutes = progressBarMaxMinute.intValue,
-                    dividerMinute = progressBarDividerMinute.intValue,
-                    onWarning = {
-                        Notification.showNotification("Warning", "It's $it minutes!")
-                    },
-                    onComplete = {
-                        Notification.showNotification("Time is up!", "It's $it minutes!")
-                    }
+                    dividerMinute = progressBarDividerMinute.intValue
                 )
             }
 
             BigTapButtonGroup(
                 onTapClick = {
                     baselineTimeLong = getCurrentTimeLong()
-                    timeRecords.add(currentTime)
+                    timeRecords.add(currentTimeLong)
+                    onWarnConfigChanged()
+                    onAlarmConfigChanged()
                 },
                 onWithdrawClick = {
                     if (timeRecords.isNotEmpty()) {
                         timeRecords.removeLast()
+                        onWarnConfigChanged()
+                        onAlarmConfigChanged()
                     }
                 },
                 onClearClick = { showClearConfirmationDialog = true },
@@ -200,7 +290,9 @@ fun HomeScreen() {
                     .padding(horizontal = 12.dp)
                     .weight(0.15f),
                 onCustomisedRepButtonClick = { showInputDialog = true }
-            ) { viewModel.addRep(it.toLong()) }
+            ) {
+                reps.add(it.toLong())
+            }
 
             Spacer(modifier = Modifier.weight(0.02f))
 
@@ -219,11 +311,13 @@ fun HomeScreen() {
                         if (progressBarDividerMinute.intValue < progressBarMaxMinute.intValue) {
                             progressBarDividerMinute.intValue += 1
                         }
+                        onWarnConfigChanged()
                     },
                     onBottomClick = {
                         if (progressBarDividerMinute.intValue > 0) {
                             progressBarDividerMinute.intValue -= 1
                         }
+                        onWarnConfigChanged()
                     },
                     onLongClick = {
                         showWarningInputDialog = true
@@ -235,6 +329,7 @@ fun HomeScreen() {
                     bottomIcon = Icons.Outlined.RemoveCircle,
                     onTopClick = {
                         progressBarMaxMinute.intValue += 1
+                        onAlarmConfigChanged()
                     },
                     onBottomClick = {
                         if (progressBarMaxMinute.intValue > 1) {
@@ -243,6 +338,7 @@ fun HomeScreen() {
                                 progressBarDividerMinute.intValue = progressBarMaxMinute.intValue
                             }
                         }
+                        onAlarmConfigChanged()
                     },
                     onLongClick = {
                         showAlarmInputDialog = true
@@ -253,14 +349,4 @@ fun HomeScreen() {
 
         Spacer(modifier = Modifier.weight(0.05f))
     }
-}
-
-fun getCurrentTimeLong(): Long = Clock.System.now().toEpochMilliseconds()
-
-fun getCurrentTime(): String {
-    val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    val h = now.hour.toString().padStart(1, '0')
-    val m = now.minute.toString().padStart(2, '0')
-    val s = now.second.toString().padStart(2, '0')
-    return "$h:$m:$s"
 }

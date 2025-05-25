@@ -5,13 +5,17 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.NotificationsOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -28,13 +32,8 @@ fun TimerProgressBar(
     currentTime: Long,
     totalMinutes: Int,
     dividerMinute: Int,
-    modifier: Modifier = Modifier,
-    onWarning: (Int) -> Unit = {},
-    onComplete: (Int) -> Unit = {}
+    modifier: Modifier = Modifier
 ) {
-    var lastWarnedMinutes by rememberSaveable { mutableIntStateOf(-1) }
-    var lastCompleteMinutes by rememberSaveable { mutableIntStateOf(-1) }
-
     val progress = (currentTime.toFloat() / totalDuration.toFloat()).coerceIn(0f, 1f)
     val animatedProgress by animateFloatAsState(progress)
 
@@ -43,7 +42,10 @@ fun TimerProgressBar(
     val dividerTime = dividerMinute * 60 * 1000L
     val totalTime = totalMinutes * 60 * 1000L
 
-    var progressColor: Color
+    val isDividerMuted = remember { mutableStateOf(false) }
+    val isEndMuted = remember { mutableStateOf(false) }
+
+    val progressColor: Color
     var dividerColor: Color
     when {
         currentTime < dividerTime -> {
@@ -55,19 +57,12 @@ fun TimerProgressBar(
             dividerColor = MaterialTheme.colors.secondaryVariant.copy(alpha = 0.3f)
         }
         else -> {
-            progressColor= MaterialTheme.colors.secondaryVariant
+            progressColor = MaterialTheme.colors.secondaryVariant
             dividerColor = MaterialTheme.colors.secondary.copy(alpha = 0.3f)
         }
     }
-    if (dividerMinute > lastWarnedMinutes && currentTime >= dividerTime) {
-        lastWarnedMinutes = dividerMinute
-        onWarning.invoke(lastWarnedMinutes)
-    }
-
-    val completeTime = totalMinutes * 60 * 1000L
-    if (totalMinutes > lastCompleteMinutes && currentTime >= completeTime) {
-        lastCompleteMinutes = totalMinutes
-        onComplete.invoke(lastCompleteMinutes)
+    if (isDividerMuted.value) {
+        dividerColor = MaterialTheme.colors.surface
     }
 
     BoxWithConstraints(
@@ -78,27 +73,47 @@ fun TimerProgressBar(
         val barWidth = constraints.maxWidth.toFloat()
         val dividerPositionPx = barWidth * dividerMinute / totalMinutes
         val dividerPositionDp = with(LocalDensity.current) { dividerPositionPx.toDp() }
+        val labelDistanceDp = with(LocalDensity.current) { (barWidth - dividerPositionPx).toDp() }
+
+        val closeThreshold = 56.dp
+        val tooCloseThreshold = 32.dp
+
+        val showCompact = labelDistanceDp < closeThreshold && labelDistanceDp >= tooCloseThreshold
+        val showAbove = labelDistanceDp < tooCloseThreshold
 
         Column {
+            if (showAbove) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 4.dp)
+                ) {
+                    Text(
+                        text = formatDurationFlexible(dividerMinute),
+                        color = if (isDividerMuted.value) MaterialTheme.colors.surface else textColor,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .absoluteOffset(x = dividerPositionDp - 16.dp)
+                    )
+                }
+            }
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(24.dp)
             ) {
-                // Background
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(trackColor, RoundedCornerShape(4.dp))
                 )
-                // Progress
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(animatedProgress)
                         .height(24.dp)
                         .background(progressColor, RoundedCornerShape(4.dp))
                 )
-                // Divider
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     val dividerX = size.width * dividerMinute / totalMinutes
                     drawRect(
@@ -109,21 +124,55 @@ fun TimerProgressBar(
                 }
             }
 
-            // Labels
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp)
+                    .padding(top = 2.dp)
             ) {
-                Text(
-                    text = formatDurationFlexible(dividerMinute),
-                    color = textColor,
-                    fontSize = 12.sp,
+                IconButton(
+                    onClick = { isDividerMuted.value = !isDividerMuted.value },
                     modifier = Modifier
-                        .absoluteOffset(x = dividerPositionDp - 16.dp)
-                )
+                        .absoluteOffset(x = dividerPositionDp - 9.5.dp)
+                        .size(20.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isDividerMuted.value) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
+                        contentDescription = "Divider Alarm",
+                        tint = if (isDividerMuted.value) MaterialTheme.colors.surface else progressColor
+                    )
+                }
+
+                IconButton(
+                    onClick = { isEndMuted.value = !isEndMuted.value },
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(20.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isEndMuted.value) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
+                        contentDescription = "End Alarm",
+                        tint = if (isEndMuted.value) MaterialTheme.colors.surface else MaterialTheme.colors.secondary
+                    )
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 0.dp)
+            ) {
+                if (!showAbove) {
+                    Text(
+                        text = if (showCompact) formatShortUnit(dividerMinute) else formatDurationFlexible(dividerMinute),
+                        color = if (isDividerMuted.value) MaterialTheme.colors.surface else textColor,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .absoluteOffset(x = dividerPositionDp - if (showCompact) 10.dp else 16.dp)
+                    )
+                }
+
                 Text(
-                    text = formatDurationFlexible(totalMinutes),
+                    text = if (showCompact) formatShortUnit(totalMinutes) else formatDurationFlexible(totalMinutes),
                     color = textColor,
                     fontSize = 12.sp,
                     modifier = Modifier.align(Alignment.CenterEnd)
@@ -135,7 +184,6 @@ fun TimerProgressBar(
 
 fun formatDurationFlexible(totalMinutes: Int): String {
     val parts = mutableListOf<String>()
-
     val days = totalMinutes / (24 * 60)
     val remainingMinutes = totalMinutes % (24 * 60)
     val fractionalHours = remainingMinutes / 60.0
@@ -152,4 +200,13 @@ fun formatDurationFlexible(totalMinutes: Int): String {
     }
 
     return parts.joinToString(" ")
+}
+
+fun formatShortUnit(totalMinutes: Int): String {
+    val h = totalMinutes / 60.0
+    return if (h >= 1) {
+        "${(h * 10).roundToInt() / 10.0}h"
+    } else {
+        "${totalMinutes}m"
+    }
 }

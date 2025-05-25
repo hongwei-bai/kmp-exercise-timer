@@ -1,7 +1,9 @@
 package com.mikeapp.timer
 
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.mikeapp.timer.ui.HomeScreen
 import com.mikeapp.timer.ui.theme.MyAppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -11,7 +13,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         MyAppTheme  {
-            HomeScreen()
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(WindowInsets.statusBars.asPaddingValues())
+            ) {
+                HomeScreen()
+            }
         }
     }
 }

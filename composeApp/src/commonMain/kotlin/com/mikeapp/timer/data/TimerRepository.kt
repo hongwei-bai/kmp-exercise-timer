@@ -3,6 +3,7 @@ package com.mikeapp.timer.data
 import com.mikeapp.timer.database.DatabaseHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlin.collections.map
 
 class TimerRepository(private val databaseHelper: DatabaseHelper) {
 
@@ -18,7 +19,7 @@ class TimerRepository(private val databaseHelper: DatabaseHelper) {
     }
 
     // ==== timer_record ====
-    fun insertTimeRecord(time: String) {
+    fun insertTimeRecord(time: Long) {
         databaseHelper.insertTimeRecord(time)
     }
 
@@ -30,8 +31,12 @@ class TimerRepository(private val databaseHelper: DatabaseHelper) {
         databaseHelper.clearAllTimeRecords()
     }
 
-    fun getAllTimeRecords(): List<String> {
+    fun getAllTimeRecords(): List<Long> {
         return databaseHelper.getAllTimeRecords().map { it.time }
+    }
+
+    fun observeAllTimeRecords(): Flow<List<Long>> {
+        return databaseHelper.observeAllTimeRecords().map { list -> list.map { it.time } }
     }
 
     // ==== reps_record ====

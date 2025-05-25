@@ -25,7 +25,7 @@ class DatabaseHelper(driverFactory: DatabaseDriverFactory) {
     // ==== timer_record ====
 
     /** Inserts a new time record (as a string). */
-    fun insertTimeRecord(time: String) {
+    fun insertTimeRecord(time: Long) {
         timeRecordQueries.insertTime(time)
     }
 
@@ -42,6 +42,12 @@ class DatabaseHelper(driverFactory: DatabaseDriverFactory) {
     /** Gets all time records in insertion order (by ID). */
     fun getAllTimeRecords(): List<Time_record> {
         return timeRecordQueries.selectAllTimes().executeAsList()
+    }
+
+    fun observeAllTimeRecords(): Flow<List<Time_record>> {
+        return timeRecordQueries.selectAllTimes()
+            .asFlow()
+            .mapToList(Dispatchers.IO) // Use proper dispatcher for DB reads
     }
 
     // ==== reps_record ====
