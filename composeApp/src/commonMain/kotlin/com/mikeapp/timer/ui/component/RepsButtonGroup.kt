@@ -75,6 +75,7 @@ fun RepsButtonGroup(
         Icon(
             imageVector = if (expanded) Icons.Default.ChevronRight else Icons.Default.ChevronLeft,
             contentDescription = null,
+            tint = MaterialTheme.colors.onBackground,
             modifier = Modifier
                 .size(32.dp)
                 .clickable { expanded = !expanded }

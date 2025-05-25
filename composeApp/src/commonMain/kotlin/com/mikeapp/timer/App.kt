@@ -1,5 +1,6 @@
 package com.mikeapp.timer
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ fun App() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(MaterialTheme.colors.background)
                     .padding(WindowInsets.statusBars.asPaddingValues())
             ) {
                 HomeScreen()

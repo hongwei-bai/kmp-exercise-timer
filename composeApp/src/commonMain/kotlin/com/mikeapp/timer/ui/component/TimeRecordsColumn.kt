@@ -3,7 +3,7 @@ package com.mikeapp.timer.ui.component
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.LocalContentColor
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -54,12 +54,12 @@ fun TimeRecordsColumn(
                     Text(
                         text = formatMillisTo24hTime(record),
                         fontSize = 24.sp,
-                        color = LocalContentColor.current.copy(alpha = alpha)
+                        color = MaterialTheme.colors.onBackground.copy(alpha = alpha)
                     )
                     Text(
                         text = period,
                         fontSize = 10.sp,
-                        color = LocalContentColor.current.copy(alpha = alpha),
+                        color = MaterialTheme.colors.onBackground.copy(alpha = alpha),
                         modifier = Modifier
                             .padding(start = 4.dp)
                             .align(if (period == "AM") Alignment.Top else Alignment.Bottom)

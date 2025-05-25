@@ -3,6 +3,7 @@ package com.mikeapp.timer.ui.component
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ fun BigTimerTile(
     Row(modifier = modifier) {
         Text(
             text = timeString,
+            color = MaterialTheme.colors.onBackground,
             fontSize = 64.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = JetBrainsMonoFontFamily()
@@ -30,6 +32,7 @@ fun BigTimerTile(
 
         Text(
             text = amOrPm,
+            color = MaterialTheme.colors.onBackground,
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = JetBrainsMonoFontFamily(),
