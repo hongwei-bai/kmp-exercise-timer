@@ -1,13 +1,37 @@
 -- timer_config.sq
+
 CREATE TABLE timer_config (
-  id INTEGER NOT NULL PRIMARY KEY,
-  total INTEGER  NOT NULL,
-  divider INTEGER  NOT NULL
+  id INTEGER NOT NULL PRIMARY KEY, -- Always 1
+  reminderMinutes INTEGER NOT NULL,
+  alarmMinutes INTEGER NOT NULL,
+  isReminderMute INTEGER NOT NULL, -- 0 = false, 1 = true
+  isAlarmMute INTEGER NOT NULL,    -- 0 = false, 1 = true
+  reminderState TEXT NOT NULL,
+  alarmState TEXT NOT NULL,
+  reminderTime INTEGER NOT NULL,
+  alarmTime INTEGER NOT NULL
 );
 
-insertOrReplace:
-REPLACE INTO timer_config(id, total, divider)
-VALUES (1, ?1, ?2);
+-- Method 1: Insert or replace the single config record
+upsertConfig:
+REPLACE INTO timer_config(
+  id,
+  reminderMinutes,
+  alarmMinutes,
+  isReminderMute,
+  isAlarmMute,
+  reminderState,
+  alarmState,
+  reminderTime,
+  alarmTime
+) VALUES (
+  1, ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8
+);
 
-selectOne:
+-- Method 2: Get the single config record
+getConfig:
 SELECT * FROM timer_config LIMIT 1;
+
+-- Method 3: Clear the config
+clearConfig:
+DELETE FROM timer_config;

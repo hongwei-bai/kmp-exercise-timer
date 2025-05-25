@@ -7,5 +7,10 @@ actual class AppLifecycle {
     ) {
         // No real backgrounding; you could add window focus tracking here if needed
         onEnterForeground()
+        AppLifecycleHandlers.onEnterBackground = onEnterBackground
     }
+}
+
+object AppLifecycleHandlers {
+    var onEnterBackground: () -> Unit = {}
 }

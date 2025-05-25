@@ -14,7 +14,6 @@ import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
-import com.mikeapp.timer.ui.util.formatMillisTo24hTime
 import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import kotlinx.coroutines.delay
 import org.koin.mp.KoinPlatform.getKoin
@@ -43,7 +42,7 @@ fun HomeScreen() {
     val isDividerMuted = remember { mutableStateOf(true) }
     val isAlarmMuted = remember { mutableStateOf(false) }
 
-    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+//    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
     when (warningState) {
         is AlarmState.Active -> if (currentTimeLong >= (warningState as AlarmState.Active).alarmTime) {
             warningState = AlarmState.Alarming
@@ -160,9 +159,40 @@ fun HomeScreen() {
         lifecycle.observeLifecycle(
             onEnterForeground = {
                 println("🌞 App entered foreground")
+                viewModel.run {
+                    restoreTimeRecords {
+//                        println("restoreTimeRecords got called: ${it.size}")
+                        timeRecords.clear()
+                        timeRecords.addAll(it)
+                    }
+                    restoreReps {
+                        reps.clear()
+                        reps.addAll(it)
+                    }
+                    restoreTimeConfig {
+                        progressBarDividerMinute.intValue = it.reminderMinutes.toInt()
+                        progressBarMaxMinute.intValue = it.alarmMinutes.toInt()
+                        isDividerMuted.value = it.isReminderMute
+                        isAlarmMuted.value = it.isAlarmMute
+                        warningState = it.reminderState
+                        alarmState = it.alarmState
+                    }
+                }
             },
             onEnterBackground = {
                 println("🌚 App entered background")
+                viewModel.run {
+                    saveTimeRecords(timeRecords)
+                    saveReps(reps)
+                    saveTimeConfig(
+                        reminderMinutes = progressBarDividerMinute.intValue.toLong(),
+                        alarmMinutes = progressBarMaxMinute.intValue.toLong(),
+                        isReminderMute = isDividerMuted.value,
+                        isAlarmMute = isAlarmMuted.value,
+                        reminderState = warningState,
+                        alarmState = alarmState
+                    )
+                }
             }
         )
     }
@@ -184,6 +214,7 @@ fun HomeScreen() {
             reps.clear()
             onWarnConfigChanged()
             onAlarmConfigChanged()
+            viewModel.clearAll()
         }
     }
 

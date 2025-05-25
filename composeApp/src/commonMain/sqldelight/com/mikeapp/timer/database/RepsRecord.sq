@@ -1,21 +1,18 @@
 -- reps_record.sq
+
 CREATE TABLE reps_record (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   rep INTEGER NOT NULL
 );
 
--- Add a new reps record
+-- Insert a single rep value (used internally in batch insert)
 insertRep:
 INSERT INTO reps_record(rep) VALUES (?1);
-
--- Remove a rep at a specific index (id)
-deleteRepById:
-DELETE FROM reps_record WHERE id = ?1;
 
 -- Clear all reps records
 clearReps:
 DELETE FROM reps_record;
 
--- Optional: Select all
+-- Select all reps records ordered by ID
 selectAllReps:
 SELECT * FROM reps_record ORDER BY id;

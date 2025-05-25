@@ -25,4 +25,28 @@ sealed class AlarmState {
             is Active -> toString()
         }
     }
+
+    companion object {
+        const val nameInactive = "Inactive"
+        const val nameAlarming = "Alarming"
+        const val namePaused = "Paused"
+        const val nameActive = "Active"
+
+        fun AlarmState.getName(): String {
+            return when (this) {
+                Inactive -> nameInactive
+                Alarming -> nameAlarming
+                is Paused -> namePaused
+                is Active -> nameActive
+            }
+        }
+
+        fun AlarmState.getAlarmTime(): Long {
+            return when (this) {
+                is Paused -> this.alarmTime
+                is Active -> this.alarmTime
+                else -> 0
+            }
+        }
+    }
 }

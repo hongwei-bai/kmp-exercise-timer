@@ -11,8 +11,16 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsColumn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsColumn.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/alarmscheme/AlarmState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/alarmscheme/AlarmState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/RepsRecord.sq" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/RepsRecord.sq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimeRecord.sq" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimeRecord.sq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +58,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -113,14 +122,14 @@
       <recent name="com.mikeapp.timer.notification" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.mikeapp.timer.database" />
       <recent name="com.mikeapp.timer" />
       <recent name="com.mikeapp.timer" />
       <recent name="com.mikeapp.timer.ui" />
       <recent name="com.mikeapp.timer.base" />
-      <recent name="com.mikeapp.timer.component" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.main [desktop]">
+  <component name="RunManager" selected="Gradle.android [composeApp:installDebug]">
     <configuration name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="kmp-exercise-timer.composeApp" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -359,7 +368,7 @@
       <workItem from="1748059293707" duration="13315000" />
       <workItem from="1748086441840" duration="2767000" />
       <workItem from="1748089820011" duration="7568000" />
-      <workItem from="1748145876678" duration="17101000" />
+      <workItem from="1748145876678" duration="24844000" />
     </task>
     <servers />
   </component>

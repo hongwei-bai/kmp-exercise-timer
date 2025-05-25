@@ -1,21 +1,18 @@
 -- time_record.sq
+
 CREATE TABLE time_record (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   time INTEGER NOT NULL
 );
 
--- Add a new time record
+-- Insert a single time value (used internally in batch insert)
 insertTime:
 INSERT INTO time_record(time) VALUES (?1);
 
--- Remove the last record (highest id)
-deleteLastTime:
-DELETE FROM time_record WHERE id = (SELECT MAX(id) FROM time_record);
-
--- Clear all time records
+-- Clear all records
 clearTimes:
 DELETE FROM time_record;
 
--- Optional: Select all
+-- Select all records in insertion order
 selectAllTimes:
 SELECT * FROM time_record ORDER BY id;
