@@ -14,8 +14,6 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.NotificationsOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -32,6 +30,10 @@ fun TimerProgressBar(
     currentTime: Long,
     totalMinutes: Int,
     dividerMinute: Int,
+    isDividerMuted: Boolean,
+    isEndMuted: Boolean,
+    onDividerBellClicked: () -> Unit,
+    onAlarmBellClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val progress = (currentTime.toFloat() / totalDuration.toFloat()).coerceIn(0f, 1f)
@@ -42,9 +44,6 @@ fun TimerProgressBar(
     val dividerTime = dividerMinute * 60 * 1000L
     val totalTime = totalMinutes * 60 * 1000L
 
-    val isDividerMuted = remember { mutableStateOf(false) }
-    val isEndMuted = remember { mutableStateOf(false) }
-
     val progressColor: Color
     var dividerColor: Color
     when {
@@ -52,17 +51,19 @@ fun TimerProgressBar(
             progressColor = MaterialTheme.colors.primary
             dividerColor = MaterialTheme.colors.primary.copy(alpha = 0.3f)
         }
+
         currentTime <= totalTime -> {
             progressColor = MaterialTheme.colors.secondary
             dividerColor = MaterialTheme.colors.secondaryVariant.copy(alpha = 0.3f)
         }
+
         else -> {
             progressColor = MaterialTheme.colors.secondaryVariant
             dividerColor = MaterialTheme.colors.secondary.copy(alpha = 0.3f)
         }
     }
-    if (isDividerMuted.value) {
-        dividerColor = MaterialTheme.colors.surface
+    if (isDividerMuted) {
+        dividerColor = MaterialTheme.colors.surface.copy(alpha = 0.3f)
     }
 
     BoxWithConstraints(
@@ -90,7 +91,7 @@ fun TimerProgressBar(
                 ) {
                     Text(
                         text = formatDurationFlexible(dividerMinute),
-                        color = if (isDividerMuted.value) MaterialTheme.colors.surface else textColor,
+                        color = if (isDividerMuted) MaterialTheme.colors.surface else textColor,
                         fontSize = 12.sp,
                         modifier = Modifier
                             .absoluteOffset(x = dividerPositionDp - 16.dp)
@@ -130,28 +131,32 @@ fun TimerProgressBar(
                     .padding(top = 2.dp)
             ) {
                 IconButton(
-                    onClick = { isDividerMuted.value = !isDividerMuted.value },
+                    onClick = {
+                        onDividerBellClicked.invoke()
+                    },
                     modifier = Modifier
                         .absoluteOffset(x = dividerPositionDp - 9.5.dp)
                         .size(20.dp)
                 ) {
                     Icon(
-                        imageVector = if (isDividerMuted.value) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
+                        imageVector = if (isDividerMuted) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
                         contentDescription = "Divider Alarm",
-                        tint = if (isDividerMuted.value) MaterialTheme.colors.surface else progressColor
+                        tint = if (isDividerMuted) MaterialTheme.colors.surface else progressColor
                     )
                 }
 
                 IconButton(
-                    onClick = { isEndMuted.value = !isEndMuted.value },
+                    onClick = {
+                        onAlarmBellClicked.invoke()
+                    },
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .size(20.dp)
                 ) {
                     Icon(
-                        imageVector = if (isEndMuted.value) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
+                        imageVector = if (isEndMuted) Icons.Filled.NotificationsOff else Icons.Filled.Notifications,
                         contentDescription = "End Alarm",
-                        tint = if (isEndMuted.value) MaterialTheme.colors.surface else MaterialTheme.colors.secondary
+                        tint = if (isEndMuted) MaterialTheme.colors.surface else MaterialTheme.colors.secondary
                     )
                 }
             }
@@ -164,7 +169,7 @@ fun TimerProgressBar(
                 if (!showAbove) {
                     Text(
                         text = if (showCompact) formatShortUnit(dividerMinute) else formatDurationFlexible(dividerMinute),
-                        color = if (isDividerMuted.value) MaterialTheme.colors.surface else textColor,
+                        color = if (isDividerMuted) MaterialTheme.colors.surface else textColor,
                         fontSize = 12.sp,
                         modifier = Modifier
                             .absoluteOffset(x = dividerPositionDp - if (showCompact) 10.dp else 16.dp)

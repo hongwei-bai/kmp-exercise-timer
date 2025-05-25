@@ -49,6 +49,8 @@ fun HomeScreen() {
     // For Alarms
     var warningState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
     var alarmState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
+    val isDividerMuted = remember { mutableStateOf(false) }
+    val isEndMuted = remember { mutableStateOf(false) }
 
 //    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
     when (warningState) {
@@ -81,7 +83,13 @@ fun HomeScreen() {
     fun onWarnConfigChanged() {
         val lastTimeRecord = timeRecords.lastOrNull() ?: return
         val comingAlarmTime = lastTimeRecord + (progressBarDividerMinute.intValue * MS_PER_MINUTE)
-        when (warningState) {
+        if (isDividerMuted.value) {
+            if (warningState is AlarmState.Active) {
+                warningState = AlarmState.Paused((warningState as AlarmState.Active).alarmTime)
+            } else {
+                warningState = AlarmState.Paused(0)
+            }
+        } else when (warningState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
                 warningState = AlarmState.Active(comingAlarmTime)
             }
@@ -107,7 +115,13 @@ fun HomeScreen() {
     fun onAlarmConfigChanged() {
         val lastTimeRecord = timeRecords.lastOrNull() ?: return
         val comingAlarmTime = lastTimeRecord + (progressBarMaxMinute.intValue * MS_PER_MINUTE)
-        when (alarmState) {
+        if (isEndMuted.value) {
+            if (alarmState is AlarmState.Active) {
+                alarmState = AlarmState.Paused((alarmState as AlarmState.Active).alarmTime)
+            } else {
+                alarmState = AlarmState.Paused(0)
+            }
+        } else when (alarmState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
                 alarmState = AlarmState.Active(comingAlarmTime)
             }
@@ -260,7 +274,17 @@ fun HomeScreen() {
                     totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
                     currentTime = currentTimeLong - baselineTimeLong,
                     totalMinutes = progressBarMaxMinute.intValue,
-                    dividerMinute = progressBarDividerMinute.intValue
+                    dividerMinute = progressBarDividerMinute.intValue,
+                    isDividerMuted = isDividerMuted.value,
+                    isEndMuted = isEndMuted.value,
+                    onDividerBellClicked = {
+                        isDividerMuted.value = !isDividerMuted.value
+                        onWarnConfigChanged()
+                    },
+                    onAlarmBellClicked = {
+                        isEndMuted.value = !isEndMuted.value
+                        onAlarmConfigChanged()
+                    }
                 )
             }
 
