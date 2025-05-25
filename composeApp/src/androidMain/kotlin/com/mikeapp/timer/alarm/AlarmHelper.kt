@@ -13,7 +13,7 @@ import androidx.annotation.RequiresPermission
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Calendar
+import java.util.*
 
 
 class AlarmHelper(val context: Context) {
@@ -25,7 +25,7 @@ class AlarmHelper(val context: Context) {
     fun setAlarm(timestampMillis: Long, title: String, message: String) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val pendingIntent = createAlarmPendingIntent(context, title, message)
-        val triggerAtMillis = System.currentTimeMillis() + timestampMillis
+        val triggerAtMillis = timestampMillis
 
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,

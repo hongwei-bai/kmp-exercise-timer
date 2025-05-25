@@ -118,7 +118,7 @@ fun HomeScreen() {
         val comingAlarmTime = lastTimeRecord + (progressBarMaxMinute.intValue * MS_PER_MINUTE)
         when (alarmState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
-                if (isDividerMuted.value) {
+                if (isAlarmMuted.value) {
                     alarmState = AlarmState.Paused(comingAlarmTime)
                 } else {
                     alarmState = AlarmState.Active(comingAlarmTime)
