@@ -12,7 +12,7 @@
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/TimeRecordsColumn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/TimeRecordsColumn.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsColumn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsColumn.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +359,7 @@
       <workItem from="1748059293707" duration="13315000" />
       <workItem from="1748086441840" duration="2767000" />
       <workItem from="1748089820011" duration="7568000" />
-      <workItem from="1748145876678" duration="16944000" />
+      <workItem from="1748145876678" duration="17101000" />
     </task>
     <servers />
   </component>

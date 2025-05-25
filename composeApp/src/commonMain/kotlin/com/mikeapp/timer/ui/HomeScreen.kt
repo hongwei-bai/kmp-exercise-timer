@@ -244,7 +244,7 @@ fun HomeScreen() {
                     .padding(horizontal = 16.dp)
                     .weight(0.5f)
             ) {
-                reps.remove(it.toLong())
+                reps.removeAt(it)
             }
         }
 

@@ -59,9 +59,7 @@ fun RepsColumn(
                 CircleBubble(
                     "${reps[index]}",
                     onClick = { text ->
-                        text.toIntOrNull()?.let { number ->
-                            onClick.invoke(number)
-                        }
+                        onClick.invoke(index)
                     },
                     isSelected = false
                 )
