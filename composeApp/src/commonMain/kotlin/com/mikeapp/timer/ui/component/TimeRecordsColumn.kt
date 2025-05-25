@@ -1,6 +1,6 @@
 package com.mikeapp.timer.ui.component
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.LocalContentColor
@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mikeapp.timer.ui.util.formatMillisTo24hTime
+import com.mikeapp.timer.ui.util.getAmPmFromTimeMs
 
 @Composable
 fun TimeRecordsColumn(
@@ -33,18 +35,38 @@ fun TimeRecordsColumn(
     ) {
         timeRecords.forEachIndexed { index, record ->
             val alpha = if (timeRecords.size == 1) {
-                maxAlpha // Only one item — full opacity
+                maxAlpha
             } else {
-                // Bottom item (latest) = 1.0f alpha, top = minAlpha
                 val fadeIndex = index.toFloat() / (totalItems - 1)
                 minAlpha + fadeIndex * (maxAlpha - minAlpha)
             }
 
-            Text(
-                text = formatMillisTo24hTime(record),
-                fontSize = 24.sp,
-                color = LocalContentColor.current.copy(alpha = alpha)
-            )
+            val period = getAmPmFromTimeMs(record)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 0.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                ) {
+                    Text(
+                        text = formatMillisTo24hTime(record),
+                        fontSize = 24.sp,
+                        color = LocalContentColor.current.copy(alpha = alpha)
+                    )
+                    Text(
+                        text = period,
+                        fontSize = 10.sp,
+                        color = LocalContentColor.current.copy(alpha = alpha),
+                        modifier = Modifier
+                            .padding(start = 4.dp)
+                            .align(if (period == "AM") Alignment.Top else Alignment.Bottom)
+                            .absoluteOffset(y = if (period == "AM") (-6).dp else 0.dp)
+                    )
+                }
+            }
         }
     }
 }

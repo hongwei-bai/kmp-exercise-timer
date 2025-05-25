@@ -25,7 +25,7 @@ fun HomeScreen() {
     val viewModel: TimerViewModel = getKoin().get()
 
     // Ui state
-    var currentTimeLong by remember { mutableStateOf(0L) }
+    var currentTimeLong by remember { mutableStateOf(getCurrentTimeLong()) }
     val timeRecords = remember { mutableStateListOf<Long>() }
     val reps = remember { mutableStateListOf<Long>() }
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
