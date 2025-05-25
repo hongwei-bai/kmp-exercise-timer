@@ -1,6 +1,12 @@
 package com.mikeapp.timer.ui
 
+import com.mikeapp.timer.alarm.AlarmSetter
 import com.mikeapp.timer.data.TimerRepository
+import com.mikeapp.timer.notification.Notification
+import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationMessage
+import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationTitle
+import com.mikeapp.timer.ui.HomeScreenConfig.reminderNotificationMessage
+import com.mikeapp.timer.ui.HomeScreenConfig.reminderNotificationTitle
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.alarmscheme.AlarmState.Companion.getAlarmTime
 import com.mikeapp.timer.ui.alarmscheme.AlarmState.Companion.getName
@@ -13,6 +19,30 @@ import kotlinx.coroutines.launch
 class TimerViewModel(
     private val repository: TimerRepository
 ) : BaseViewModel() {
+
+    fun showReminderNotification() {
+        Notification.showNotification(reminderNotificationTitle, reminderNotificationMessage)
+    }
+
+    fun showAlarmNotification() {
+        Notification.showNotification(alarmNotificationTitle, alarmNotificationMessage)
+    }
+
+    fun setReminder(time: Long) {
+        AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage)
+    }
+
+    fun cancelReminder() {
+        AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage)
+    }
+
+    fun setAlarm(time: Long) {
+        AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage)
+    }
+
+    fun cancelAlarm() {
+        AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage)
+    }
 
     fun saveTimeConfig(
         reminderMinutes: Long,

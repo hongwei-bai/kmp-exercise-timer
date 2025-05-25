@@ -10,10 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mikeapp.timer.lifecycle.AppLifecycle
-import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
+import com.mikeapp.timer.ui.util.formatMillisTo24hTime
 import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import kotlinx.coroutines.delay
 import org.koin.mp.KoinPlatform.getKoin
@@ -41,15 +41,16 @@ fun HomeScreen() {
     var alarmState by remember { mutableStateOf<AlarmState>(AlarmState.Inactive) }
     val isDividerMuted = remember { mutableStateOf(true) }
     val isAlarmMuted = remember { mutableStateOf(false) }
+    val onForegroundActive = remember { mutableStateOf(false) }
 
-//    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
     when (warningState) {
         is AlarmState.Active -> if (currentTimeLong >= (warningState as AlarmState.Active).alarmTime) {
             warningState = AlarmState.Alarming
         }
 
         AlarmState.Alarming -> {
-            Notification.showNotification("Reminder", "Reminder time is coming!")
+            viewModel.showReminderNotification()
             warningState = AlarmState.Inactive
         }
 
@@ -63,7 +64,7 @@ fun HomeScreen() {
         }
 
         AlarmState.Alarming -> {
-            Notification.showNotification("Alarm", "Time is up!!!!!!!!!!!!!!!")
+            viewModel.showAlarmNotification()
             alarmState = AlarmState.Inactive
         }
 
@@ -159,7 +160,10 @@ fun HomeScreen() {
         lifecycle.observeLifecycle(
             onEnterForeground = {
                 println("🌞 App entered foreground")
+                onForegroundActive.value = true
                 viewModel.run {
+                    cancelReminder()
+                    cancelAlarm()
                     restoreTimeRecords {
 //                        println("restoreTimeRecords got called: ${it.size}")
                         timeRecords.clear()
@@ -181,7 +185,14 @@ fun HomeScreen() {
             },
             onEnterBackground = {
                 println("🌚 App entered background")
+                onForegroundActive.value = false
                 viewModel.run {
+                    if (warningState is AlarmState.Active) {
+                        setReminder((warningState as AlarmState.Active).alarmTime)
+                    }
+                    if (alarmState is AlarmState.Active) {
+                        setAlarm((alarmState as AlarmState.Active).alarmTime)
+                    }
                     saveTimeRecords(timeRecords)
                     saveReps(reps)
                     saveTimeConfig(
@@ -197,8 +208,8 @@ fun HomeScreen() {
         )
     }
 
-    LaunchedEffect(Unit) {
-        while (true) {
+    LaunchedEffect(onForegroundActive.value) {
+        while (onForegroundActive.value) {
             delay(1000)
             currentTimeLong = getCurrentTimeLong()
         }

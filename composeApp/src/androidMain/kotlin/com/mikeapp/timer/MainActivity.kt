@@ -28,4 +28,19 @@ class MainActivity : ComponentActivity() {
         val dbPath = this.getDatabasePath("app.db").absolutePath
         Log.d("SQLDelight", "DB path: $dbPath")
     }
+
+    override fun onPause() {
+        Log.d(">>>>>", "App onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d(">>>>>", "App onStop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.d(">>>>>", "App onDestroy")
+        super.onDestroy()
+    }
 }
