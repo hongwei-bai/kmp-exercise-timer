@@ -20,3 +20,5 @@ kotlin-js-store
 .idea/*
 # But NOT the runConfigurations folder
 !.idea/workspace.xml
+composeApp/release/*
+
