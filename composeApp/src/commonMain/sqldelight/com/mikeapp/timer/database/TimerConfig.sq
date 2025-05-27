@@ -13,7 +13,7 @@ CREATE TABLE timer_config (
 );
 
 -- Method 1: Insert or replace the single config record
-upsertConfig:
+updateConfig:
 REPLACE INTO timer_config(
   id,
   reminderMinutes,

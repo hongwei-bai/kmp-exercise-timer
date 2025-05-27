@@ -10,10 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreenConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreenConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/timer.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,12 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kmp-exercise-timer" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -57,10 +63,9 @@
     </option>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="D:\code\sign\melon_timer" />
+    <option name="KEY_STORE_PATH" value="D:\code\sign\melon_timer.keystore" />
     <option name="KEY_ALIAS" value="mikedev" />
     <option name="REMEMBER_PASSWORDS" value="true" />
-    <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -81,7 +86,9 @@
     "Android App.composeApp.executor": "Run",
     "Android App.kmp-exercise-timer.composeApp.executor": "Run",
     "ApkExportedModule": "kmp-exercise-timer.composeApp",
+    "BundleExportedModule": "kmp-exercise-timer.composeApp",
     "ExportApk.ApkPathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
+    "ExportBundle.BundlePathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
     "Gradle.Build kmp-exercise-timer.executor": "Run",
     "Gradle.android [composeApp:installDebug].executor": "Run",
     "Gradle.composeApp:packageMsi.executor": "Run",
@@ -100,6 +107,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "editor.preferences.import",
+    "stored_options": "{\"dialectConnections\":{\"app.cash.sqldelight.dialects.sqlite_3_18.SqliteDialect\":{\"orderedOptions\":[],\"serializedProperties\":{}}}}",
     "typescript.add.unambiguous.imports.on.the.fly": "true",
     "vue.rearranger.settings.migration": "true"
   },
@@ -136,7 +144,7 @@
       <recent name="com.mikeapp.timer.base" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.main [desktop]">
+  <component name="RunManager" selected="Gradle.android [composeApp:installDebug]">
     <configuration name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="kmp-exercise-timer.composeApp" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -400,7 +408,11 @@
       <workItem from="1748089820011" duration="7568000" />
       <workItem from="1748145876678" duration="26829000" />
       <workItem from="1748183231079" duration="2656000" />
-      <workItem from="1748227632248" duration="14296000" />
+      <workItem from="1748227632248" duration="16078000" />
+      <workItem from="1748265199346" duration="639000" />
+      <workItem from="1748301897763" duration="443000" />
+      <workItem from="1748325117214" duration="2094000" />
+      <workItem from="1748327244518" duration="2638000" />
     </task>
     <servers />
   </component>

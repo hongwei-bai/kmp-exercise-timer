@@ -19,7 +19,7 @@ class DatabaseHelper(driverFactory: DatabaseDriverFactory) {
         reminderTime: Long,
         alarmTime: Long
     ) {
-        timerConfigQueries.upsertConfig(
+        timerConfigQueries.updateConfig(
             reminderMinutes = reminderMinutes,
             alarmMinutes = alarmMinutes,
             isReminderMute = if (isReminderMute) 1 else 0,

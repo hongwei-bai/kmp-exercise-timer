@@ -13,7 +13,6 @@ import com.mikeapp.timer.lifecycle.AppLifecycle
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
-import com.mikeapp.timer.ui.util.formatMillisTo24hTime
 import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import kotlinx.coroutines.delay
 import org.koin.mp.KoinPlatform.getKoin
@@ -43,7 +42,7 @@ fun HomeScreen() {
     val isAlarmMuted = remember { mutableStateOf(false) }
     val onForegroundActive = remember { mutableStateOf(false) }
 
-    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
+//    println("warningState: $warningState, time: ${formatMillisTo24hTime(currentTimeLong)}")
     when (warningState) {
         is AlarmState.Active -> if (currentTimeLong >= (warningState as AlarmState.Active).alarmTime) {
             warningState = AlarmState.Alarming
@@ -72,7 +71,11 @@ fun HomeScreen() {
     }
 
     fun onWarnConfigChanged() {
-        val lastTimeRecord = timeRecords.lastOrNull() ?: return
+        val lastTimeRecord = timeRecords.lastOrNull()
+        if (lastTimeRecord == null) {
+            warningState = AlarmState.Inactive
+            return
+        }
         val comingAlarmTime = lastTimeRecord + (progressBarDividerMinute.intValue * MS_PER_MINUTE)
         when (warningState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
@@ -114,7 +117,11 @@ fun HomeScreen() {
     }
 
     fun onAlarmConfigChanged() {
-        val lastTimeRecord = timeRecords.lastOrNull() ?: return
+        val lastTimeRecord = timeRecords.lastOrNull()
+        if (lastTimeRecord == null) {
+            alarmState = AlarmState.Inactive
+            return
+        }
         val comingAlarmTime = lastTimeRecord + (progressBarMaxMinute.intValue * MS_PER_MINUTE)
         when (alarmState) {
             AlarmState.Inactive -> if (comingAlarmTime > currentTimeLong) {
