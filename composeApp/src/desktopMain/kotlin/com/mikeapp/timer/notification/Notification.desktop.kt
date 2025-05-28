@@ -6,7 +6,7 @@ import java.awt.TrayIcon
 import java.awt.TrayIcon.MessageType
 
 actual object Notification {
-    actual fun showNotification(title: String, message: String) {
+    actual fun showNotification(title: String, message: String, category: NotificationCategory) {
         showDesktopNotification(title, message)
     }
 

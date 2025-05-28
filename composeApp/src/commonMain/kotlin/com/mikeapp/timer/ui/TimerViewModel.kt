@@ -3,6 +3,7 @@ package com.mikeapp.timer.ui
 import com.mikeapp.timer.alarm.AlarmSetter
 import com.mikeapp.timer.data.TimerRepository
 import com.mikeapp.timer.notification.Notification
+import com.mikeapp.timer.notification.NotificationCategory
 import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationMessage
 import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationTitle
 import com.mikeapp.timer.ui.HomeScreenConfig.reminderNotificationMessage
@@ -21,11 +22,13 @@ class TimerViewModel(
 ) : BaseViewModel() {
 
     fun showReminderNotification() {
-        Notification.showNotification(reminderNotificationTitle, reminderNotificationMessage)
+        Notification.showNotification(reminderNotificationTitle, reminderNotificationMessage,
+            NotificationCategory.Reminder)
     }
 
     fun showAlarmNotification() {
-        Notification.showNotification(alarmNotificationTitle, alarmNotificationMessage)
+        Notification.showNotification(alarmNotificationTitle, alarmNotificationMessage,
+            NotificationCategory.Alarm)
     }
 
     fun setReminder(time: Long) {
