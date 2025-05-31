@@ -1,5 +1,6 @@
 package com.mikeapp.timer.ui
 
+import com.mikeapp.timer.alarm.AlarmCategory
 import com.mikeapp.timer.alarm.AlarmSetter
 import com.mikeapp.timer.data.TimerRepository
 import com.mikeapp.timer.notification.Notification
@@ -15,6 +16,7 @@ import com.mikeapp.timer.ui.base.BaseViewModel
 import com.mikeapp.timer.ui.viewstate.TimeConfigViewState
 import com.mikeapp.timer.ui.viewstate.map
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock.System.now
 
 // commonMain
 class TimerViewModel(
@@ -22,29 +24,33 @@ class TimerViewModel(
 ) : BaseViewModel() {
 
     fun showReminderNotification() {
-        Notification.showNotification(reminderNotificationTitle, reminderNotificationMessage,
-            NotificationCategory.Reminder)
+        Notification.showNotification(
+            reminderNotificationTitle, reminderNotificationMessage,
+            NotificationCategory.Reminder
+        )
     }
 
     fun showAlarmNotification() {
-        Notification.showNotification(alarmNotificationTitle, alarmNotificationMessage,
-            NotificationCategory.Alarm)
+        Notification.showNotification(
+            alarmNotificationTitle, alarmNotificationMessage,
+            NotificationCategory.Alarm
+        )
     }
 
     fun setReminder(time: Long) {
-        AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage)
+        AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
     }
 
     fun cancelReminder() {
-        AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage)
+        AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
     }
 
     fun setAlarm(time: Long) {
-        AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage)
+        AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
     }
 
     fun cancelAlarm() {
-        AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage)
+        AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
     }
 
     fun saveTimeConfig(
@@ -55,17 +61,19 @@ class TimerViewModel(
         reminderState: AlarmState,
         alarmState: AlarmState
     ) {
-        println("save time config, reminderState: $reminderState")
-        repository.saveTimerConfig(
-            reminderMinutes = reminderMinutes,
-            alarmMinutes = alarmMinutes,
-            isReminderMute = isReminderMute,
-            isAlarmMute = isAlarmMute,
-            reminderState = reminderState.getName(),
-            alarmState = alarmState.getName(),
-            reminderTime = reminderState.getAlarmTime(),
-            alarmTime = alarmState.getAlarmTime()
-        )
+        viewModelScope.launch {
+            println("save time config, reminderState: $reminderState")
+            repository.saveTimerConfig(
+                reminderMinutes = reminderMinutes,
+                alarmMinutes = alarmMinutes,
+                isReminderMute = isReminderMute,
+                isAlarmMute = isAlarmMute,
+                reminderState = reminderState.getName(),
+                alarmState = alarmState.getName(),
+                reminderTime = reminderState.getAlarmTime(),
+                alarmTime = alarmState.getAlarmTime()
+            )
+        }
     }
 
     fun restoreTimeConfig(onResult: (TimeConfigViewState) -> Unit) {
@@ -73,9 +81,26 @@ class TimerViewModel(
             val timerConfig = repository.getTimerConfig()?.map()
             println("restore time config, reminderState: ${timerConfig?.reminderState}")
             timerConfig?.let {
-                onResult(it)
+                onResult(cancelAlarmIfAlarmedInBackground(it))
             }
         }
+    }
+
+    private fun cancelAlarmIfAlarmedInBackground(timeConfig: TimeConfigViewState): TimeConfigViewState {
+        val timeConfigCopy = timeConfig.copy()
+        if (timeConfig.reminderState is AlarmState.Active) {
+            val nowLong = now().toEpochMilliseconds()
+            if (nowLong > timeConfig.reminderState.getAlarmTime() + 1000L) {
+                timeConfigCopy.reminderState = AlarmState.Paused(timeConfig.reminderState.getAlarmTime())
+            }
+        }
+        if (timeConfig.alarmState is AlarmState.Active) {
+            val nowLong = now().toEpochMilliseconds()
+            if (nowLong > timeConfig.alarmState.getAlarmTime() + 1000L) {
+                timeConfigCopy.alarmState = AlarmState.Paused(timeConfig.alarmState.getAlarmTime())
+            }
+        }
+        return timeConfigCopy
     }
 
     fun saveTimeRecords(records: List<Long>) {

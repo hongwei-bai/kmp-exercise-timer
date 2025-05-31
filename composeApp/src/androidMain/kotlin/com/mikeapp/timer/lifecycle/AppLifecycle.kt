@@ -8,11 +8,11 @@ actual class AppLifecycle {
     actual fun observeLifecycle(onEnterForeground: () -> Unit, onEnterBackground: () -> Unit) {
         val lifecycleOwner = ProcessLifecycleOwner.get()
         lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onStart(owner: LifecycleOwner) {
+            override fun onResume(owner: LifecycleOwner) {
                 onEnterForeground()
             }
 
-            override fun onStop(owner: LifecycleOwner) {
+            override fun onPause(owner: LifecycleOwner) {
                 onEnterBackground()
             }
         })

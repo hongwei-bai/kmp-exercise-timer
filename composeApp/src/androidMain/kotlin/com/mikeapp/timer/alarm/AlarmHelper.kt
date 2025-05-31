@@ -22,9 +22,9 @@ class AlarmHelper(val context: Context) {
      */
     @SuppressLint("ScheduleExactAlarm")
     @RequiresPermission(Manifest.permission.SCHEDULE_EXACT_ALARM)
-    fun setAlarm(timestampMillis: Long, title: String, message: String) {
+    fun setAlarm(timestampMillis: Long, title: String, message: String, requestCode: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createAlarmPendingIntent(context, title, message)
+        val pendingIntent = createAlarmPendingIntent(context, title, message, requestCode)
         val triggerAtMillis = timestampMillis
 
         alarmManager.setExactAndAllowWhileIdle(
@@ -37,23 +37,23 @@ class AlarmHelper(val context: Context) {
     /**
      * Cancel any existing alarm with the predefined request code.
      */
-    fun cancelAlarm(title: String, message: String) {
+    fun cancelAlarm(title: String, message: String, requestCode: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pendingIntent = createAlarmPendingIntent(context, title, message)
+        val pendingIntent = createAlarmPendingIntent(context, title, message, requestCode)
         alarmManager.cancel(pendingIntent)
     }
 
     /**
      * Create a consistent PendingIntent used for setting and canceling alarms.
      */
-    private fun createAlarmPendingIntent(context: Context, title: String, message: String): PendingIntent {
+    private fun createAlarmPendingIntent(context: Context, title: String, message: String, requestCode: Int): PendingIntent {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("EXTRA_TITLE", title)
             putExtra("EXTRA_MESSAGE", message)
         }
         return PendingIntent.getBroadcast(
             context,
-            ALARM_REQUEST_CODE,
+            requestCode,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -87,6 +87,5 @@ class AlarmHelper(val context: Context) {
 
     companion object {
         private val TAG = AlarmHelper::class.simpleName
-        private const val ALARM_REQUEST_CODE = 1001
     }
 }

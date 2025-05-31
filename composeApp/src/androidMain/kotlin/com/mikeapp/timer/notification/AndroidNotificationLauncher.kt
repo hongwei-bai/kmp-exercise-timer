@@ -22,13 +22,12 @@ object NotificationLauncher {
         title: String,
         msg: String,
         longMessageToPass: String? = null,
-        @DrawableRes icon: Int = R.mipmap.ic_launcher,
+        @DrawableRes icon: Int = R.drawable.ic_notification_timer,
     ) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
         val intent = Intent(context, MainActivity::class.java).apply {
             longMessageToPass?.let {
-                Log.d("bbbb", "longMessageToPass: $longMessageToPass")
                 putExtra("extra_long_string", longMessageToPass)
             }
         }

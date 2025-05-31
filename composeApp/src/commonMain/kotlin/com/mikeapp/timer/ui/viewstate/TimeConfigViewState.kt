@@ -7,6 +7,6 @@ data class TimeConfigViewState(
     val alarmMinutes: Long,
     val isReminderMute: Boolean,
     val isAlarmMute: Boolean,
-    val reminderState: AlarmState,
-    val alarmState: AlarmState
+    var reminderState: AlarmState,
+    var alarmState: AlarmState
 )
