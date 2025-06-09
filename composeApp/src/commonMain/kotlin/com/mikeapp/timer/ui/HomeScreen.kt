@@ -15,8 +15,10 @@ import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
 import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.mp.KoinPlatform.getKoin
 
+@Preview
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeScreen() {
@@ -270,7 +272,6 @@ fun HomeScreen() {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
         Row(
@@ -297,16 +298,25 @@ fun HomeScreen() {
             }
         }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-                .weight(HomeScreenConfig.homeScreenBottomButtonheightWeight)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(vertical = 12.dp),
+            contentAlignment = Alignment.Center
         ) {
             BigTimerTile(
                 currentTimeLong = currentTimeLong,
-                modifier = Modifier.weight(0.2f)
             )
+        }
 
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight()
+                .weight(HomeScreenConfig.homeScreenBottomButtonHeightWeight)
+        ) {
             if (timeRecords.isNotEmpty()) {
                 TimerProgressBar(
                     totalDuration = progressBarMaxMinute.intValue * 60 * 1000L,
@@ -340,22 +350,23 @@ fun HomeScreen() {
                     }
                 },
                 onClearClick = { showClearConfirmationDialog = true },
-                modifier = Modifier.weight(0.4f)
+                modifier = Modifier.weight(0.4f).wrapContentHeight()
             )
 
-            Spacer(modifier = Modifier.weight(0.02f))
+            Spacer(modifier = Modifier.weight(0.01f))
 
             // reps buttons
             RepsButtonGroup(
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 12.dp)
+                    .wrapContentHeight()
                     .weight(0.15f),
                 onCustomisedRepButtonClick = { showInputDialog = true }
             ) {
                 reps.add(it.toLong())
             }
 
-            Spacer(modifier = Modifier.weight(0.02f))
+            Spacer(modifier = Modifier.weight(0.01f))
 
             //settings buttons
             Row(
@@ -363,8 +374,10 @@ fun HomeScreen() {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
                     .padding(horizontal = 8.dp)
+                    .wrapContentHeight()
                     .weight(0.24f)
             ) {
+                val buttonHeight = 96.dp
                 HalfCircleButtonPair(
                     topIcon = Icons.Outlined.AddAlarm,
                     bottomIcon = Icons.Outlined.RemoveCircle,
@@ -382,7 +395,10 @@ fun HomeScreen() {
                     },
                     onLongClick = {
                         showWarningInputDialog = true
-                    }
+                    },
+                    modifier = Modifier
+                        .height(buttonHeight)
+                        .aspectRatio(1f)
                 )
                 Spacer(modifier = Modifier.width(24.dp))
                 HalfCircleButtonPair(
@@ -403,11 +419,18 @@ fun HomeScreen() {
                     },
                     onLongClick = {
                         showAlarmInputDialog = true
-                    }
+                    },
+                    modifier = Modifier
+                        .height(buttonHeight)
+                        .aspectRatio(1f)
                 )
             }
         }
 
-        Spacer(modifier = Modifier.weight(0.05f))
+        Spacer(
+            modifier = Modifier
+                .weight(0.1f, fill = false)
+                .heightIn(min = 8.dp, max = 24.dp)
+        )
     }
 }

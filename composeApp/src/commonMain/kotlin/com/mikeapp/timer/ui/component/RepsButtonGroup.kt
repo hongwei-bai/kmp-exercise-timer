@@ -38,7 +38,7 @@ fun RepsButtonGroup(
                     shape = CircleShape,
                     modifier = Modifier
                         .padding(horizontal = paddingBetweenReps.dp)
-                        .size(repsSizes[i].dp),
+                        .requiredSize(repsSizes[i].dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                     contentPadding = PaddingValues(0.dp)
                 ) {
@@ -57,7 +57,7 @@ fun RepsButtonGroup(
                 shape = CircleShape,
                 modifier = Modifier
                     .padding(horizontal = paddingBetweenReps.dp)
-                    .size(repsButtonDiameter.dp),
+                    .requiredSize(repsButtonDiameter.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
                 contentPadding = PaddingValues(0.dp)
             ) {

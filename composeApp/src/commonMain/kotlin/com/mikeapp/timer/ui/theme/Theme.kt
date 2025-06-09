@@ -18,7 +18,7 @@ private val LightColors = lightColors(
     surface = VividGrey,
     onSurface = VividBlack,
     error = VividDarkGrey,
-    onError = VividBlack
+    onError = VividGrey
 )
 
 
@@ -31,10 +31,10 @@ private val DarkColors = darkColors(
     onSecondary = VividBlack,
     background = VividBlack,
     onBackground = VividWhite,
-    surface = VividBlue,
+    surface = VividDarkerGrey,
     onSurface = VividWhite,
-    error = VividDarkGrey,
-    onError = VividBlack
+    error = VividDarkerGrey,
+    onError = VividGrey
 )
 
 @Composable

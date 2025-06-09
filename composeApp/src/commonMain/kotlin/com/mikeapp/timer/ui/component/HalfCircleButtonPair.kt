@@ -72,7 +72,10 @@ fun HalfCircleButtonPair(
     )
 
     Box(
-        modifier = modifier.size(diameter),
+        modifier = modifier
+            .fillMaxWidth(0.3f) // or any fraction that fits your layout
+            .aspectRatio(1f)
+            .sizeIn(minWidth = 64.dp, minHeight = 64.dp, maxWidth = diameter, maxHeight = diameter),
         contentAlignment = Alignment.Center
     ) {
         Box(
@@ -132,7 +135,7 @@ fun HalfCircleButtonPair(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(top = 8.dp)
+                        modifier = Modifier.padding(top = 4.dp)
                     ) {
                         Icon(
                             imageVector = topIcon,
@@ -140,6 +143,7 @@ fun HalfCircleButtonPair(
                             tint = MaterialTheme.colors.onPrimary,
                             modifier = Modifier.size(24.dp)
                         )
+                        Spacer(modifier = Modifier.height(4.dp))
                     }
                 }
 
@@ -164,7 +168,7 @@ fun HalfCircleButtonPair(
                                     val released = try {
                                         // Wait for release or cancellation
                                         val success = tryAwaitRelease()
-                                        val pressDuration =Clock.System.now().toEpochMilliseconds() - pressStartTime
+                                        val pressDuration = Clock.System.now().toEpochMilliseconds() - pressStartTime
 
                                         if (!longClickFired && pressDuration < 1000) {
                                             // Only act if longClick hasn't already fired
@@ -187,33 +191,35 @@ fun HalfCircleButtonPair(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(bottom = 8.dp)
+                        modifier = Modifier.padding(bottom = 4.dp)
                     ) {
+                        Spacer(modifier = Modifier.height(4.dp))
                         Icon(
                             imageVector = bottomIcon,
                             contentDescription = null,
                             tint = MaterialTheme.colors.onSecondary,
                             modifier = Modifier.size(24.dp)
                         )
-                        Spacer(modifier = Modifier.height(4.dp))
+                        Spacer(modifier = Modifier.height(0.dp))
                     }
                 }
             }
         }
 
+        val centralDotColor = MaterialTheme.colors.onError
         Box(
             modifier = Modifier
                 .size(10.dp)
-                .shadow(2.dp, CircleShape)
-                .background(MaterialTheme.colors.secondary, CircleShape)
+                .shadow(4.dp, CircleShape)
+                .background(centralDotColor, CircleShape)
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            MaterialTheme.colors.secondary.copy(alpha = 0.7f),
-                            MaterialTheme.colors.secondary.copy(alpha = 0.5f),
-                            MaterialTheme.colors.secondary.copy(alpha = 0.3f),
-                            MaterialTheme.colors.secondary.copy(alpha = 0.1f),
-                            MaterialTheme.colors.secondary.copy(alpha = 0.01f)
+                            centralDotColor.copy(alpha = 0.7f),
+                            centralDotColor.copy(alpha = 0.5f),
+                            centralDotColor.copy(alpha = 0.3f),
+                            centralDotColor.copy(alpha = 0.1f),
+                            centralDotColor.copy(alpha = 0.01f)
                         )
                     ),
                     shape = CircleShape

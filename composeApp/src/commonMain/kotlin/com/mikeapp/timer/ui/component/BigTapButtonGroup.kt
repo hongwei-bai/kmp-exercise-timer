@@ -11,7 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@Preview
 @Composable
 fun BigTapButtonGroup(
     onTapClick: () -> Unit,
@@ -43,7 +45,10 @@ fun BigTapButtonGroup(
                 onTapClick.invoke()
             },
             shape = CircleShape,
-            modifier = Modifier.size(160.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.45f)
+                .aspectRatio(1f)
+                .sizeIn(minWidth = 120.dp, minHeight = 120.dp, maxWidth = 160.dp, maxHeight = 160.dp),
             contentPadding = PaddingValues(0.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary) // Material 2 primary color
         ) {
