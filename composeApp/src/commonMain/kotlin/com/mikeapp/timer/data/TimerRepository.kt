@@ -1,11 +1,24 @@
 package com.mikeapp.timer.data
 
-import com.mikeapp.timer.database.DatabaseHelper
+import com.mikeapp.timer.data.room.TimerRoomDatabase
+import com.mikeapp.timer.data.room.entity.RepsRecordEntity
+import com.mikeapp.timer.data.room.entity.TimeRecordEntity
+import com.mikeapp.timer.data.room.entity.TimerConfigEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
 
-class TimerRepository(private val databaseHelper: DatabaseHelper) {
+class TimerRepository(
+    private var roomDatabase: TimerRoomDatabase,
+    private val scope: CoroutineScope
+) {
+    private val timerConfigDao = roomDatabase.timerConfigDao()
+    private val timeRecordDao = roomDatabase.timeRecordDao()
+    private val repsRecordDao = roomDatabase.repsRecordDao()
 
     // ==== timer_config ====
-    fun saveTimerConfig(
+    suspend fun saveTimerConfig(
         reminderMinutes: Long,
         alarmMinutes: Long,
         isReminderMute: Boolean,
@@ -14,10 +27,11 @@ class TimerRepository(private val databaseHelper: DatabaseHelper) {
         alarmState: String,
         reminderTime: Long,
         alarmTime: Long
-    ) {
-        databaseHelper.saveTimerConfig(
-            reminderMinutes = reminderMinutes,
-            alarmMinutes = alarmMinutes,
+    ) = withContext(Dispatchers.IO) {
+        val config = TimerConfigEntity(
+            id = 1,
+            reminderMinutes = reminderMinutes.toInt(),
+            alarmMinutes = alarmMinutes.toInt(),
             isReminderMute = isReminderMute,
             isAlarmMute = isAlarmMute,
             reminderState = reminderState,
@@ -25,15 +39,16 @@ class TimerRepository(private val databaseHelper: DatabaseHelper) {
             reminderTime = reminderTime,
             alarmTime = alarmTime
         )
+        timerConfigDao.updateConfig(config)
     }
 
-    fun getTimerConfig(): TimerConfig? {
-        return databaseHelper.getTimerConfig()?.let {
+    suspend fun getTimerConfig(): TimerConfig? = withContext(Dispatchers.IO) {
+        timerConfigDao.getConfig()?.let {
             TimerConfig(
-                reminderMinutes = it.reminderMinutes,
-                alarmMinutes = it.alarmMinutes,
-                isReminderMute = it.isReminderMute != 0L,
-                isAlarmMute = it.isAlarmMute != 0L,
+                reminderMinutes = it.reminderMinutes.toLong(),
+                alarmMinutes = it.alarmMinutes.toLong(),
+                isReminderMute = it.isReminderMute,
+                isAlarmMute = it.isAlarmMute,
                 reminderState = it.reminderState,
                 alarmState = it.alarmState,
                 reminderTime = it.reminderTime,
@@ -42,35 +57,37 @@ class TimerRepository(private val databaseHelper: DatabaseHelper) {
         }
     }
 
-    fun clearTimerConfig() {
-        databaseHelper.clearTimerConfig()
+    suspend fun clearTimerConfig() = withContext(Dispatchers.IO) {
+        timerConfigDao.clearConfig()
     }
 
-    // ==== timer_record ====
+    // ==== time_record ====
 
-    fun saveAllTimeRecords(times: List<Long>) {
-        databaseHelper.saveAllTimeRecords(times)
+    suspend fun saveAllTimeRecords(times: List<Long>) = withContext(Dispatchers.IO) {
+        val entities = times.map { TimeRecordEntity(time = it) }
+        entities.forEach { timeRecordDao.insertTime(it) }
     }
 
-    fun clearAllTimeRecords() {
-        databaseHelper.clearAllTimeRecords()
+    suspend fun clearAllTimeRecords() = withContext(Dispatchers.IO) {
+        timeRecordDao.clearTimes()
     }
 
-    fun getAllTimeRecords(): List<Long> {
-        return databaseHelper.getAllTimeRecords().map { it.time }
+    suspend fun getAllTimeRecords(): List<Long> = withContext(Dispatchers.IO) {
+        timeRecordDao.selectAllTimes().map { it.time }
     }
 
     // ==== reps_record ====
 
-    fun saveAllReps(reps: List<Long>) {
-        databaseHelper.saveAllReps(reps)
+    suspend fun saveAllReps(reps: List<Long>) = withContext(Dispatchers.IO) {
+        val entities = reps.map { RepsRecordEntity(rep = it.toInt()) }
+        entities.forEach { repsRecordDao.insertRep(it) }
     }
 
-    fun clearAllReps() {
-        databaseHelper.clearAllReps()
+    suspend fun clearAllReps() = withContext(Dispatchers.IO) {
+        repsRecordDao.clearReps()
     }
 
-    fun getAllReps(): List<Long> {
-        return databaseHelper.getAllReps().map { it.rep }
+    suspend fun getAllReps(): List<Long> = withContext(Dispatchers.IO) {
+        repsRecordDao.selectAllReps().map { it.rep.toLong() }
     }
 }

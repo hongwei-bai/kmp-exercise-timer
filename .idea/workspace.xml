@@ -11,16 +11,22 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composeApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreenConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreenConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/BigTapButtonGroup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/BigTapButtonGroup.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/HalfCircleButtonPair.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/HalfCircleButtonPair.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsButtonGroup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/RepsButtonGroup.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/TimerProgressBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/component/TimerProgressBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/theme/ColorPalette.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/theme/ColorPalette.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/theme/Theme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/theme/Theme.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/database/AndroidDriverFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseDriverFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/RepsRecord.sq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimeRecord.sq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/database/DesktopDriverFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di/Koin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di/Koin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +70,8 @@
       <list>
         <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Enum" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -107,7 +113,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/kmp/kmp-exercise-timer&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/code/kmp/kmp-exercise-timer/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -126,11 +132,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\code\kmp\kmp-exercise-timer" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\ui\component" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\ui" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\composeResources\font" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\ui\theme" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer\di" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer\di" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\di" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\kotlin\com\mikeapp\timer\di" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\database" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\resources\font" />
@@ -138,17 +144,18 @@
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.mikeapp.timer.di" />
+      <recent name="com.mikeapp.timer.database" />
       <recent name="com.mikeapp.timer.ui" />
       <recent name="com.mikeapp.timer.ui.base" />
       <recent name="com.mikeapp.timer" />
-      <recent name="com.mikeapp.timer.notification" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.mikeapp.timer.data.room.entity" />
+      <recent name="com.mikeapp.timer.data.room.dao" />
+      <recent name="com.mikeapp.timer.data.room" />
       <recent name="com.mikeapp.timer.database" />
       <recent name="com.mikeapp.timer" />
-      <recent name="com.mikeapp.timer" />
-      <recent name="com.mikeapp.timer.ui" />
-      <recent name="com.mikeapp.timer.base" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.android [composeApp:installDebug]">
@@ -433,6 +440,9 @@
       <workItem from="1749340667984" duration="259000" />
       <workItem from="1749341085243" duration="25000" />
       <workItem from="1749440469417" duration="4088000" />
+      <workItem from="1752127597617" duration="3737000" />
+      <workItem from="1752137517471" duration="2249000" />
+      <workItem from="1752140095880" duration="677000" />
     </task>
     <servers />
   </component>

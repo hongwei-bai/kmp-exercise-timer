@@ -1,13 +1,17 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    id("app.cash.sqldelight") version "2.0.1"
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
+    alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.skie)
 }
 
 kotlin {
@@ -18,6 +22,7 @@ kotlin {
         }
     }
 
+    val xcFramework = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
@@ -26,25 +31,17 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            xcFramework.add(this)
         }
     }
 
     jvm("desktop")
 
     sourceSets {
-        val desktopMain by getting {
-            resources.srcDir("src/desktopMain/resources")
+        all {
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
         }
 
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.sqldelight.android.driver)
-            implementation(libs.koin.android)
-            implementation(libs.androidx.lifecycle.runtime.ktx)
-            implementation(libs.androidx.lifecycle.common.java8)
-            implementation(libs.androidx.lifecycle.process)
-        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -55,21 +52,35 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.sqldelight.runtime)
             implementation(libs.koin.core)
             implementation(libs.coroutines.core)
-            implementation(libs.sqldelight.coroutines.extensions)
             implementation(libs.material.icons.extended)
+            implementation(libs.sqlite.bundled)
+            implementation(libs.skie.annotations)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.paging.common)
+        }
+
+        val desktopMain by getting {
+            resources.srcDir("src/desktopMain/resources")
+        }
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
+            implementation(libs.androidx.lifecycle.runtime.ktx)
+            implementation(libs.androidx.lifecycle.common.java8)
+            implementation(libs.androidx.lifecycle.process)
+            implementation(libs.androidx.room.paging)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.sqldelight.sqlite.driver)
             implementation(libs.koin.core)
             implementation(libs.slf4j.simple)
         }
         iosMain.dependencies {
-            implementation(libs.sqldelight.native.driver)
             implementation(libs.koin.core)
         }
     }
@@ -111,6 +122,17 @@ android {
 }
 
 dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
     debugImplementation(compose.uiTooling)
 }
 
@@ -124,22 +146,18 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-sqldelight {
-    databases {
-        create("AppDatabase") {
-            packageName.set("com.mikeapp.timer.database")
-
-            // Optional: Add this if you want to generate a schema file
-            generateAsync.set(false)
-        }
+    dependencies {
+        ksp(libs.androidx.room.compiler)
     }
-
-    // Optional: Link SQLDelight with Kotlin/Native memory model
-    linkSqlite.set(true)
 }
 
 tasks.withType<Copy> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE // or INCLUDE if needed
+}
+
+skie {
+    features {
+        // https://skie.touchlab.co/features/flows-in-swiftui
+        enableSwiftUIObservingPreview = true
+    }
 }
