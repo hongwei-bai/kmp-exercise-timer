@@ -11,22 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/database/AndroidDriverFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/data/TimerRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseDriverFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/database/DatabaseHelper.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/di/AppModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/RepsRecord.sq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimeRecord.sq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/sqldelight/com/mikeapp/timer/database/TimerConfig.sq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/database/DesktopDriverFactory.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/di/PlatformModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di/Koin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di/Koin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,61 +80,62 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.composeApp.executor&quot;: &quot;Run&quot;,
-    &quot;Android App.kmp-exercise-timer.composeApp.executor&quot;: &quot;Run&quot;,
-    &quot;ApkExportedModule&quot;: &quot;kmp-exercise-timer.composeApp&quot;,
-    &quot;BundleExportedModule&quot;: &quot;kmp-exercise-timer.composeApp&quot;,
-    &quot;ExportApk.ApkPathForkmp-exercise-timer.composeApp&quot;: &quot;D:\\code\\kmp\\kmp-exercise-timer\\composeApp&quot;,
-    &quot;ExportBundle.BundlePathForkmp-exercise-timer.composeApp&quot;: &quot;D:\\code\\kmp\\kmp-exercise-timer\\composeApp&quot;,
-    &quot;Gradle.Build kmp-exercise-timer.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.android [composeApp:installDebug].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.composeApp:packageMsi.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.composeApp:signReleaseBundle.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.main [desktop].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.packageReleaseUniversalApk.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/kmp/kmp-exercise-timer/composeApp/src/iosMain/kotlin/com/mikeapp/timer/di&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;stored_options&quot;: &quot;{\&quot;dialectConnections\&quot;:{\&quot;app.cash.sqldelight.dialects.sqlite_3_18.SqliteDialect\&quot;:{\&quot;orderedOptions\&quot;:[],\&quot;serializedProperties\&quot;:{}}}}&quot;,
-    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.composeApp.executor": "Run",
+    "Android App.kmp-exercise-timer.composeApp.executor": "Run",
+    "ApkExportedModule": "kmp-exercise-timer.composeApp",
+    "BundleExportedModule": "kmp-exercise-timer.composeApp",
+    "ExportApk.ApkPathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
+    "ExportBundle.BundlePathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
+    "Gradle.Build kmp-exercise-timer.executor": "Run",
+    "Gradle.android [composeApp:installDebug].executor": "Run",
+    "Gradle.composeApp:packageMsi.executor": "Run",
+    "Gradle.composeApp:signReleaseBundle.executor": "Run",
+    "Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor": "Run",
+    "Gradle.main [desktop].executor": "Run",
+    "Gradle.packageReleaseUniversalApk.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/code/kmp/kmp-exercise-timer/iosApp/iosApp/Preview Content",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "stored_options": "{\"dialectConnections\":{\"app.cash.sqldelight.dialects.sqlite_3_18.SqliteDialect\":{\"orderedOptions\":[],\"serializedProperties\":{}}}}",
+    "typescript.add.unambiguous.imports.on.the.fly": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;release&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer\di" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer\di" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\di" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\kotlin\com\mikeapp\timer\di" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp\timer\database" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp\Preview Content" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\kotlin\com\mikeapp\timer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\resources\font" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.mikeapp.timer.interop" />
       <recent name="com.mikeapp.timer.di" />
       <recent name="com.mikeapp.timer.database" />
       <recent name="com.mikeapp.timer.ui" />
       <recent name="com.mikeapp.timer.ui.base" />
-      <recent name="com.mikeapp.timer" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.mikeapp.timer.data.room.entity" />
@@ -442,7 +429,7 @@
       <workItem from="1749440469417" duration="4088000" />
       <workItem from="1752127597617" duration="3737000" />
       <workItem from="1752137517471" duration="2249000" />
-      <workItem from="1752140095880" duration="677000" />
+      <workItem from="1752140095880" duration="2235000" />
     </task>
     <servers />
   </component>
