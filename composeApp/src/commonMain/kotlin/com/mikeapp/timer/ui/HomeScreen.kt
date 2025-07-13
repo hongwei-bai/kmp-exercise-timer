@@ -13,8 +13,6 @@ import com.mikeapp.timer.lifecycle.AppLifecycle
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
-import com.mikeapp.timer.ui.util.getCurrentTimeLong
-import kotlinx.coroutines.delay
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.mp.KoinPlatform.getKoin
 
@@ -25,7 +23,7 @@ fun HomeScreen() {
     val viewModel: TimerViewModel = getKoin().get()
 
     // Ui state
-    var currentTimeLong by remember { mutableStateOf(getCurrentTimeLong()) }
+    val currentTimeLong by viewModel.currentTime.collectAsState()
     val timeRecords = remember { mutableStateListOf<Long>() }
     val reps = remember { mutableStateListOf<Long>() }
     val progressBarMaxMinute = remember { mutableIntStateOf(3) }
@@ -215,13 +213,6 @@ fun HomeScreen() {
                 }
             }
         )
-    }
-
-    LaunchedEffect(onForegroundActive.value) {
-        while (onForegroundActive.value) {
-            delay(1000)
-            currentTimeLong = getCurrentTimeLong()
-        }
     }
 
     if (showClearConfirmationDialog) {

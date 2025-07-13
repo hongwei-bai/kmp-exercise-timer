@@ -8,9 +8,15 @@ import platform.UIKit.UIApplicationDidEnterBackgroundNotification
 import platform.UIKit.UIApplicationWillEnterForegroundNotification
 import platform.darwin.NSObject
 
+// 🔐 Retain this so it doesn't get garbage collected
+private var retainedObserver: NSObject? = null
+
 actual class AppLifecycle {
     @OptIn(ExperimentalForeignApi::class)
-    actual fun observeLifecycle(onEnterForeground: () -> Unit, onEnterBackground: () -> Unit) {
+    actual fun observeLifecycle(
+        onEnterForeground: () -> Unit,
+        onEnterBackground: () -> Unit
+    ) {
         val observer = object : NSObject() {
             @ObjCAction
             fun handleEnterForeground() {
@@ -36,5 +42,8 @@ actual class AppLifecycle {
             name = UIApplicationDidEnterBackgroundNotification,
             `object` = null
         )
+
+        // ✅ This prevents GC cleanup
+        retainedObserver = observer
     }
 }

@@ -13,8 +13,12 @@ import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.alarmscheme.AlarmState.Companion.getAlarmTime
 import com.mikeapp.timer.ui.alarmscheme.AlarmState.Companion.getName
 import com.mikeapp.timer.ui.base.BaseViewModel
+import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import com.mikeapp.timer.ui.viewstate.TimeConfigViewState
 import com.mikeapp.timer.ui.viewstate.map
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock.System.now
 
@@ -22,6 +26,17 @@ import kotlinx.datetime.Clock.System.now
 class TimerViewModel(
     private val repository: TimerRepository
 ) : BaseViewModel() {
+    private val _currentTime = MutableStateFlow(getCurrentTimeLong())
+    val currentTime: StateFlow<Long> = _currentTime
+
+    init {
+        viewModelScope.launch {
+            while (true) {
+                delay(1000)
+                _currentTime.value = getCurrentTimeLong()
+            }
+        }
+    }
 
     fun showReminderNotification() {
         Notification.showNotification(

@@ -10,8 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/nativeMain/kotlin/com/mikeapp/timer/database/NativeDriverFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/alarm/AlarmSetter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/alarm/AlarmSetter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/notification/Notification.ios.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/notification/Notification.ios.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,10 +101,12 @@
     "Gradle.android [composeApp:installDebug].executor": "Run",
     "Gradle.composeApp:packageMsi.executor": "Run",
     "Gradle.composeApp:signReleaseBundle.executor": "Run",
+    "Gradle.kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries].executor": "Run",
     "Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor": "Run",
     "Gradle.main [desktop].executor": "Run",
     "Gradle.packageReleaseUniversalApk.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -145,7 +156,7 @@
       <recent name="com.mikeapp.timer" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.android [composeApp:installDebug]">
+  <component name="RunManager" selected="Gradle.kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries]">
     <configuration name="composeApp" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="kmp-exercise-timer.composeApp" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -298,6 +309,28 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="composeApp:iosSimulatorArm64Binaries" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="main [desktop]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -348,6 +381,7 @@
       <item itemvalue="Gradle.composeApp:signReleaseBundle" />
       <item itemvalue="Gradle.packageReleaseUniversalApk" />
       <item itemvalue="Gradle.android [composeApp:installDebug]" />
+      <item itemvalue="Gradle.kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries]" />
       <item itemvalue="Gradle.composeApp:packageMsi" />
       <item itemvalue="Gradle.main [desktop]" />
     </list>
@@ -360,8 +394,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
@@ -430,6 +464,7 @@
       <workItem from="1752127597617" duration="3737000" />
       <workItem from="1752137517471" duration="2249000" />
       <workItem from="1752140095880" duration="2235000" />
+      <workItem from="1752211138568" duration="6529000" />
     </task>
     <servers />
   </component>

@@ -24,7 +24,7 @@ fun main() = application {
             onExit()             // <-- your exit logic here
             exitApplication()    // then actually exit
         },
-        title = "kmp-exercise-timer",
+        title = "Melon Timer",
         state = rememberWindowState(
             width = 412.dp,
             height = 915.dp
