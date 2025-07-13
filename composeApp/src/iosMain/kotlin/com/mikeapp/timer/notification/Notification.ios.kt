@@ -13,6 +13,7 @@ actual object Notification : KoinComponent {
         message: String,
         category: NotificationCategory
     ) {
+        println("showNotification: $title, message: $message")
         val center = UNUserNotificationCenter.currentNotificationCenter()
 
         center.requestAuthorizationWithOptions(
