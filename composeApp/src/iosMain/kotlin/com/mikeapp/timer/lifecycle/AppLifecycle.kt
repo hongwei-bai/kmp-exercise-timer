@@ -8,7 +8,6 @@ import platform.UIKit.UIApplicationDidEnterBackgroundNotification
 import platform.UIKit.UIApplicationWillEnterForegroundNotification
 import platform.darwin.NSObject
 
-// 🔐 Retain this so it doesn't get garbage collected
 private var retainedObserver: NSObject? = null
 
 actual class AppLifecycle {
@@ -20,11 +19,13 @@ actual class AppLifecycle {
         val observer = object : NSObject() {
             @ObjCAction
             fun handleEnterForeground() {
+                println("🔄 AppLifecycle: enter foreground")
                 onEnterForeground()
             }
 
             @ObjCAction
             fun handleEnterBackground() {
+                println("🔄 AppLifecycle: enter background")
                 onEnterBackground()
             }
         }
@@ -43,7 +44,10 @@ actual class AppLifecycle {
             `object` = null
         )
 
-        // ✅ This prevents GC cleanup
         retainedObserver = observer
+
+        // ✅ First-time launch trigger
+        println("🚀 AppLifecycle: first-time foreground trigger")
+        onEnterForeground()
     }
 }

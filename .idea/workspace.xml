@@ -10,18 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/alarm/AlarmSetter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/alarm/AlarmSetter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/lifecycle/AppLifecycle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/notification/Notification.ios.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/notification/Notification.ios.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/Configuration/Config.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/iOSApp.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/TimerViewModelWrapper.swift" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -464,7 +457,7 @@
       <workItem from="1752127597617" duration="3737000" />
       <workItem from="1752137517471" duration="2249000" />
       <workItem from="1752140095880" duration="2235000" />
-      <workItem from="1752211138568" duration="6529000" />
+      <workItem from="1752211138568" duration="8729000" />
     </task>
     <servers />
   </component>
