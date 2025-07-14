@@ -73,7 +73,8 @@ class TimerRepository(
     }
 
     suspend fun getAllTimeRecords(): List<Long> = withContext(Dispatchers.IO) {
-        timeRecordDao.selectAllTimes().map { it.time }
+        val list = timeRecordDao.selectAllTimes().map { it.time }
+        list
     }
 
     // ==== reps_record ====

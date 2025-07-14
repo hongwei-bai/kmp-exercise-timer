@@ -120,6 +120,7 @@ class TimerViewModel(
 
     fun saveTimeRecords(records: List<Long>) {
         viewModelScope.launch {
+            repository.clearAllTimeRecords()
             repository.saveAllTimeRecords(records)
         }
     }
@@ -133,6 +134,7 @@ class TimerViewModel(
 
     fun saveReps(reps: List<Long>) {
         viewModelScope.launch {
+            repository.clearAllReps()
             repository.saveAllReps(reps)
         }
     }
