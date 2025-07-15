@@ -2,6 +2,8 @@ package com.mikeapp.timer.interop
 
 import androidx.room.Room
 import com.mikeapp.timer.alarm.AlarmCategory
+import com.mikeapp.timer.alarm.AlarmSound
+import com.mikeapp.timer.alarm.toFileName
 import com.mikeapp.timer.data.room.DB_FILE_NAME
 import com.mikeapp.timer.data.room.TimerRoomDatabase
 import com.mikeapp.timer.notification.NotificationCategory
@@ -10,11 +12,13 @@ import kotlinx.cinterop.ObjCAction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.context.GlobalContext
+import platform.AVFoundation.*
 import platform.Foundation.*
 import platform.UIKit.UIApplicationDidEnterBackgroundNotification
 import platform.UIKit.UIApplicationWillEnterForegroundNotification
 import platform.UserNotifications.*
 import platform.darwin.NSObject
+
 
 private var retainedObserver: NSObject? = null
 
@@ -182,6 +186,21 @@ actual class NativeInterface {
         println("AlarmSetter.cancelAlarm()")
         center.removePendingNotificationRequestsWithIdentifiers(listOf(ALARM_ID))
         center.removeDeliveredNotificationsWithIdentifiers(listOf(ALARM_ID))
+    }
+
+    private var player: AVAudioPlayer? = null
+
+    actual fun playSound(sound: AlarmSound) {
+        val fileName = sound.toFileName().removeSuffix(".wav")
+        val url = NSBundle.mainBundle.URLForResource(fileName, "wav") ?: return
+        player = AVAudioPlayer(contentsOfURL = url, error = null)
+        player?.prepareToPlay()
+        player?.play()
+    }
+
+    actual fun stopSound() {
+        player?.stop()
+        player = null
     }
 
     companion object {

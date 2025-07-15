@@ -3,6 +3,7 @@ package com.mikeapp.timer.interop
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -13,6 +14,7 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.mikeapp.timer.R
 import com.mikeapp.timer.alarm.AlarmCategory
 import com.mikeapp.timer.alarm.AlarmHelper
+import com.mikeapp.timer.alarm.AlarmSound
 import com.mikeapp.timer.data.room.DB_FILE_NAME
 import com.mikeapp.timer.data.room.TimerRoomDatabase
 import com.mikeapp.timer.notification.NotificationCategory
@@ -80,6 +82,25 @@ actual class NativeInterface(
                 icon = R.drawable.ic_notification_timer
             )
         }
+    }
+
+    private var mediaPlayer: MediaPlayer? = null
+
+    actual fun playSound(sound: AlarmSound) {
+        val resId = when (sound) {
+            AlarmSound.Alarm_996 -> R.raw.alarm_996
+            AlarmSound.Alarm_buzzer_992 -> R.raw.alarm_buzzer_992
+        }
+
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(app, resId)
+        mediaPlayer?.start()
+    }
+
+    actual fun stopSound() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     companion object {

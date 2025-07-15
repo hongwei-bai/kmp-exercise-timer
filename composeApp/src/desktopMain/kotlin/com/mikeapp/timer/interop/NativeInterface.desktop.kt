@@ -3,6 +3,8 @@ package com.mikeapp.timer.interop
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.mikeapp.timer.alarm.AlarmCategory
+import com.mikeapp.timer.alarm.AlarmSound
+import com.mikeapp.timer.alarm.toFileName
 import com.mikeapp.timer.data.room.DB_FILE_NAME
 import com.mikeapp.timer.data.room.TimerRoomDatabase
 import com.mikeapp.timer.notification.NotificationCategory
@@ -13,6 +15,7 @@ import java.awt.Toolkit
 import java.awt.TrayIcon
 import java.awt.TrayIcon.MessageType
 import java.io.File
+import javax.sound.sampled.AudioSystem
 
 actual class NativeInterface {
     actual fun observeLifecycle(
@@ -67,6 +70,22 @@ actual class NativeInterface {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private var clip: javax.sound.sampled.Clip? = null
+
+    actual fun playSound(sound: AlarmSound) {
+        val resource = this::class.java.getResource("/alarm/" + sound.toFileName()) ?: return
+        val audioInputStream = AudioSystem.getAudioInputStream(File(resource.toURI()))
+        clip = AudioSystem.getClip()
+        clip?.open(audioInputStream)
+        clip?.start()
+    }
+
+    actual fun stopSound() {
+        clip?.stop()
+        clip?.close()
+        clip = null
     }
 }
 
