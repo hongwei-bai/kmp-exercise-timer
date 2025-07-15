@@ -2,6 +2,7 @@ package com.mikeapp.timer.di
 
 import com.mikeapp.timer.data.TimerRepository
 import com.mikeapp.timer.data.room.TimerRoomDatabase
+import com.mikeapp.timer.interop.NativeInterface
 import com.mikeapp.timer.ui.TimerViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +13,7 @@ val commonModule = module {
     single {
         CoroutineScope(Dispatchers.Default + SupervisorJob())
     }
-    single<TimerRoomDatabase> { get<Factory>().createRoomDatabase() }
+    single<TimerRoomDatabase> { get<NativeInterface>().createRoomDatabase() }
     single { TimerRepository(get(), get()) }
     factory { TimerViewModel(get()) }
 }

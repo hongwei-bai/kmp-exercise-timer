@@ -1,9 +1,8 @@
 package com.mikeapp.timer.ui
 
 import com.mikeapp.timer.alarm.AlarmCategory
-import com.mikeapp.timer.alarm.AlarmSetter
 import com.mikeapp.timer.data.TimerRepository
-import com.mikeapp.timer.notification.Notification
+import com.mikeapp.timer.interop.getNativeInterface
 import com.mikeapp.timer.notification.NotificationCategory
 import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationMessage
 import com.mikeapp.timer.ui.HomeScreenConfig.alarmNotificationTitle
@@ -26,6 +25,8 @@ import kotlinx.datetime.Clock.System.now
 class TimerViewModel(
     private val repository: TimerRepository
 ) : BaseViewModel() {
+    private val nativeInterface = getNativeInterface()
+
     private val _currentTime = MutableStateFlow(getCurrentTimeLong())
     val currentTime: StateFlow<Long> = _currentTime
 
@@ -39,33 +40,33 @@ class TimerViewModel(
     }
 
     fun showReminderNotification() {
-        Notification.showNotification(
+        nativeInterface.showNotification(
             reminderNotificationTitle, reminderNotificationMessage,
             NotificationCategory.Reminder
         )
     }
 
     fun showAlarmNotification() {
-        Notification.showNotification(
+        nativeInterface.showNotification(
             alarmNotificationTitle, alarmNotificationMessage,
             NotificationCategory.Alarm
         )
     }
 
     fun setReminder(time: Long) {
-        AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        nativeInterface.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
     }
 
     fun cancelReminder() {
-        AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        nativeInterface.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
     }
 
     fun setAlarm(time: Long) {
-        AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        nativeInterface.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
     }
 
     fun cancelAlarm() {
-        AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        nativeInterface.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
     }
 
     fun saveTimeConfig(

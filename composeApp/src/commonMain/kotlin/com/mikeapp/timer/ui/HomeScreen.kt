@@ -9,7 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mikeapp.timer.lifecycle.AppLifecycle
+import com.mikeapp.timer.interop.getNativeInterface
 import com.mikeapp.timer.ui.alarmscheme.AlarmState
 import com.mikeapp.timer.ui.component.*
 import com.mikeapp.timer.ui.util.MS_PER_MINUTE
@@ -162,9 +162,10 @@ fun HomeScreen() {
         }
     }
 
-    val lifecycle = remember { AppLifecycle() }
+    val nativeInterface = remember { getNativeInterface() }
+//    val lifecycle = remember { AppLifecycle() }
     LaunchedEffect(Unit) {
-        lifecycle.observeLifecycle(
+        nativeInterface.observeLifecycle(
             onEnterForeground = {
                 println("🌞 App entered foreground")
                 onForegroundActive.value = true

@@ -7,7 +7,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.mikeapp.timer.di.commonModule
 import com.mikeapp.timer.di.platformModule
-import com.mikeapp.timer.lifecycle.AppLifecycleHandlers
+import com.mikeapp.timer.interop.AppLifecycleHandlers
 import org.koin.core.context.GlobalContext.startKoin
 
 fun main() = application {
