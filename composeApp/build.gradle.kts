@@ -151,9 +151,9 @@ compose.desktop {
     }
 }
 
-//tasks.withType<Copy> {
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // or INCLUDE if needed
-//}
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // or INCLUDE if needed
+}
 
 skie {
     features {

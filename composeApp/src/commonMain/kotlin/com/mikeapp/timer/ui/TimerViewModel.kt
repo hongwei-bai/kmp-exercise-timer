@@ -153,4 +153,14 @@ class TimerViewModel(
             repository.clearTimerConfig()
         }
     }
+
+    fun getStepSize(minutes: Int): Int {
+        return when {
+            minutes < 15 -> 1
+            minutes < 30 -> 5
+            minutes < 120 -> 10
+            minutes < 180 -> 30
+            else -> 60
+        }
+    }
 }

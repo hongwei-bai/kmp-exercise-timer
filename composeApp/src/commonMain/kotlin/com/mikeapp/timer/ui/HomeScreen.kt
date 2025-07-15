@@ -373,16 +373,22 @@ fun HomeScreen() {
                     topIcon = Icons.Outlined.AddAlarm,
                     bottomIcon = Icons.Outlined.RemoveCircle,
                     onTopClick = {
-                        if (progressBarDividerMinute.intValue < progressBarMaxMinute.intValue) {
-                            progressBarDividerMinute.intValue += 1
+                        val current = progressBarDividerMinute.intValue
+                        val step = viewModel.getStepSize(current)
+                        val next = current + step
+                        if (next <= progressBarMaxMinute.intValue) {
+                            progressBarDividerMinute.intValue = next
+                            onWarnConfigChanged()
                         }
-                        onWarnConfigChanged()
                     },
                     onBottomClick = {
-                        if (progressBarDividerMinute.intValue > 0) {
-                            progressBarDividerMinute.intValue -= 1
+                        val current = progressBarDividerMinute.intValue
+                        val step = viewModel.getStepSize(current)
+                        val next = current - step
+                        if (next >= 0) {
+                            progressBarDividerMinute.intValue = next
+                            onWarnConfigChanged()
                         }
-                        onWarnConfigChanged()
                     },
                     onLongClick = {
                         showWarningInputDialog = true
@@ -396,17 +402,23 @@ fun HomeScreen() {
                     topIcon = Icons.Outlined.AddAlert,
                     bottomIcon = Icons.Outlined.RemoveCircle,
                     onTopClick = {
-                        progressBarMaxMinute.intValue += 1
+                        val current = progressBarMaxMinute.intValue
+                        val step = viewModel.getStepSize(current)
+                        progressBarMaxMinute.intValue += step
                         onAlarmConfigChanged()
                     },
                     onBottomClick = {
-                        if (progressBarMaxMinute.intValue > 1) {
-                            progressBarMaxMinute.intValue -= 1
-                            if (progressBarDividerMinute.intValue > progressBarMaxMinute.intValue) {
-                                progressBarDividerMinute.intValue = progressBarMaxMinute.intValue
+                        val current = progressBarMaxMinute.intValue
+                        val step = viewModel.getStepSize(current)
+                        val next = current - step
+                        if (next >= 1) {
+                            progressBarMaxMinute.intValue = next
+                            // Clamp divider if needed
+                            if (progressBarDividerMinute.intValue > next) {
+                                progressBarDividerMinute.intValue = next
                             }
+                            onAlarmConfigChanged()
                         }
-                        onAlarmConfigChanged()
                     },
                     onLongClick = {
                         showAlarmInputDialog = true
