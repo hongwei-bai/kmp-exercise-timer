@@ -11,23 +11,20 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.koin.core.context.GlobalContext
-import platform.AVFoundation.*
+import org.koin.core.component.KoinComponent
 import platform.Foundation.*
 import platform.UIKit.UIApplicationDidEnterBackgroundNotification
 import platform.UIKit.UIApplicationWillEnterForegroundNotification
 import platform.UserNotifications.*
 import platform.darwin.NSObject
-
+import platform.Foundation.NSURL
+import org.koin.core.component.inject
+import platform.darwin.NSObjectProtocol
+import kotlin.native.ObjCName
 
 private var retainedObserver: NSObject? = null
 
 actual class NativeInterface {
-    var delegate: ((String) -> String)? = null
-
-//    actual fun greet(name: String): String {
-//        return delegate?.invoke(name) ?: "No delegate"
-//    }
 
     @OptIn(ExperimentalForeignApi::class)
     actual fun observeLifecycle(
@@ -188,19 +185,13 @@ actual class NativeInterface {
         center.removeDeliveredNotificationsWithIdentifiers(listOf(ALARM_ID))
     }
 
-    private var player: AVAudioPlayer? = null
-
     actual fun playSound(sound: AlarmSound) {
-        val fileName = sound.toFileName().removeSuffix(".wav")
-        val url = NSBundle.mainBundle.URLForResource(fileName, "wav") ?: return
-        player = AVAudioPlayer(contentsOfURL = url, error = null)
-        player?.prepareToPlay()
-        player?.play()
+        println("playSound:")
+        val name = NativeGreeter.greet("Mike")
+        println("playSound: $name")
     }
 
     actual fun stopSound() {
-        player?.stop()
-        player = null
     }
 
     companion object {
@@ -208,6 +199,10 @@ actual class NativeInterface {
     }
 }
 
+object NativeInterfaceProvider : KoinComponent {
+    val instance: NativeInterface by inject()
+}
+
 actual fun getNativeInterface(): NativeInterface {
-    return GlobalContext.get().get<NativeInterface>()
+    return NativeInterfaceProvider.instance
 }

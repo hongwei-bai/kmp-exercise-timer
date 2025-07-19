@@ -32,6 +32,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             xcFramework.add(this)
+            linkerOpts("-framework", "AVFoundation")
         }
     }
 
@@ -81,7 +82,6 @@ kotlin {
             implementation(libs.slf4j.simple)
         }
         iosMain.dependencies {
-            implementation(libs.koin.core)
         }
     }
 }
