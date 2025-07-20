@@ -3,6 +3,7 @@ package com.mikeapp.timer.ui
 import com.mikeapp.timer.alarm.AlarmCategory
 import com.mikeapp.timer.alarm.AlarmSetter
 import com.mikeapp.timer.alarm.AlarmSound
+import com.mikeapp.timer.alarm.toFileName
 import com.mikeapp.timer.data.TimerRepository
 import com.mikeapp.timer.notification.Notification
 import com.mikeapp.timer.notification.NotificationCategory
@@ -45,7 +46,7 @@ class TimerViewModel(
             reminderNotificationTitle, reminderNotificationMessage,
             NotificationCategory.Reminder
         )
-        SoundPlayer.playSound(AlarmSound.Alarm_996)
+        SoundPlayer.playSound(AlarmSound.Alarm_996.toFileName())
     }
 
     fun showAlarmNotification() {
@@ -53,7 +54,7 @@ class TimerViewModel(
             alarmNotificationTitle, alarmNotificationMessage,
             NotificationCategory.Alarm
         )
-        SoundPlayer.playSound(AlarmSound.Alarm_buzzer_992)
+        SoundPlayer.playSound(AlarmSound.Alarm_buzzer_992.toFileName())
     }
 
     fun setReminder(time: Long) {
