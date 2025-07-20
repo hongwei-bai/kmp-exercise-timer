@@ -15,5 +15,6 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound]) // 👈 show alert + play sound
+        SoundPlayer.playSound(fileName: "alarm_996.wav")
     }
 }

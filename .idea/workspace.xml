@@ -11,9 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +57,7 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Enum" />
         <option value="Kotlin Class" />
+        <option value="Swift File" />
       </list>
     </option>
   </component>
@@ -81,51 +80,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.composeApp.executor&quot;: &quot;Run&quot;,
-    &quot;Android App.kmp-exercise-timer.composeApp.executor&quot;: &quot;Run&quot;,
-    &quot;ApkExportedModule&quot;: &quot;kmp-exercise-timer.composeApp&quot;,
-    &quot;BundleExportedModule&quot;: &quot;kmp-exercise-timer.composeApp&quot;,
-    &quot;ExportApk.ApkPathForkmp-exercise-timer.composeApp&quot;: &quot;D:\\code\\kmp\\kmp-exercise-timer\\composeApp&quot;,
-    &quot;ExportBundle.BundlePathForkmp-exercise-timer.composeApp&quot;: &quot;D:\\code\\kmp\\kmp-exercise-timer\\composeApp&quot;,
-    &quot;Gradle.Build kmp-exercise-timer.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.android [composeApp:installDebug].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.composeApp:packageMsi.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.composeApp:signReleaseBundle.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.main [desktop].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.packageReleaseUniversalApk.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/kmp/kmp-exercise-timer/iosApp/iosApp/Preview Content&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;stored_options&quot;: &quot;{\&quot;dialectConnections\&quot;:{\&quot;app.cash.sqldelight.dialects.sqlite_3_18.SqliteDialect\&quot;:{\&quot;orderedOptions\&quot;:[],\&quot;serializedProperties\&quot;:{}}}}&quot;,
-    &quot;typescript.add.unambiguous.imports.on.the.fly&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.composeApp.executor": "Run",
+    "Android App.kmp-exercise-timer.composeApp.executor": "Run",
+    "ApkExportedModule": "kmp-exercise-timer.composeApp",
+    "BundleExportedModule": "kmp-exercise-timer.composeApp",
+    "DefaultSwiftTemplate": "Swift File",
+    "ExportApk.ApkPathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
+    "ExportBundle.BundlePathForkmp-exercise-timer.composeApp": "D:\\code\\kmp\\kmp-exercise-timer\\composeApp",
+    "Gradle.Build kmp-exercise-timer.executor": "Run",
+    "Gradle.android [composeApp:installDebug].executor": "Run",
+    "Gradle.composeApp:packageMsi.executor": "Run",
+    "Gradle.composeApp:signReleaseBundle.executor": "Run",
+    "Gradle.kmp-exercise-timer [composeApp:iosSimulatorArm64Binaries].executor": "Run",
+    "Gradle.kmp-exercise-timer [composeApp:wasmJsBrowserRun].executor": "Run",
+    "Gradle.main [desktop].executor": "Run",
+    "Gradle.packageReleaseUniversalApk.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "ffa6c702",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/code/kmp/kmp-exercise-timer/composeApp/src/iosMain/kotlin/com/mikeapp/timer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "stored_options": "{\"dialectConnections\":{\"app.cash.sqldelight.dialects.sqlite_3_18.SqliteDialect\":{\"orderedOptions\":[],\"serializedProperties\":{}}}}",
+    "typescript.add.unambiguous.imports.on.the.fly": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;release&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp\Preview Content" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\kotlin\com\mikeapp\timer" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp\Preview Content" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp" />
@@ -134,11 +134,11 @@
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\commonMain\kotlin\com\mikeapp" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.mikeapp.timer.sound" />
       <recent name="com.mikeapp.timer.interop" />
       <recent name="com.mikeapp.timer.di" />
       <recent name="com.mikeapp.timer.database" />
       <recent name="com.mikeapp.timer.ui" />
-      <recent name="com.mikeapp.timer.ui.base" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.mikeapp.timer.data.room.entity" />
@@ -386,8 +386,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -457,6 +457,7 @@
       <workItem from="1752137517471" duration="2249000" />
       <workItem from="1752140095880" duration="2235000" />
       <workItem from="1752211138568" duration="9935000" />
+      <workItem from="1753000824880" duration="1266000" />
     </task>
     <servers />
   </component>
