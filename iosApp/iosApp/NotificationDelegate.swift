@@ -14,7 +14,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound]) // 👈 show alert + play sound
-        SoundPlayer.playSound(fileName: "alarm_996.wav")
+//        completionHandler([.banner, .sound]) // 👈 show alert + play sound
+        completionHandler([.banner]) // 👈 show alert only
     }
 }

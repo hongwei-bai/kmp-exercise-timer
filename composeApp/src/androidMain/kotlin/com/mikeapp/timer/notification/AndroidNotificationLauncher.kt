@@ -8,12 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import com.mikeapp.timer.R
 import com.mikeapp.timer.MainActivity
-import kotlin.jvm.java
+import com.mikeapp.timer.R
 
 object NotificationLauncher {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -21,6 +19,7 @@ object NotificationLauncher {
         context: Context,
         title: String,
         msg: String,
+        mute: Boolean = false,
         longMessageToPass: String? = null,
         @DrawableRes icon: Int = R.drawable.ic_notification_timer,
     ) {
@@ -47,7 +46,7 @@ object NotificationLauncher {
         channel.enableVibration(true)
         channel.setShowBadge(true)
         notificationManager?.createNotificationChannel(channel)
-        val notification = Notification.Builder(context)
+        val notificationBuilder = Notification.Builder(context)
             .setChannelId(NOTIFICATION_CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(msg)
@@ -56,7 +55,11 @@ object NotificationLauncher {
             .setVibrate(longArrayOf())
             .setDefaults(Notification.DEFAULT_ALL)
             .setContentIntent(pendingIntent)
-            .setSmallIcon(icon).build()
+            .setSmallIcon(icon)
+        if (mute) {
+            notificationBuilder.setSound(null)
+        }
+        val notification = notificationBuilder.build()
         notificationManager?.notify(NOTIFICATION_ID, notification)
     }
 

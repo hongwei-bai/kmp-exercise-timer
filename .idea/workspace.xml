@@ -11,6 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9aea6ce5-86af-4c91-b936-fd5f0cfcf4eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/notification/AndroidNotificationLauncher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/notification/AndroidNotificationLauncher.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.android.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/androidMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.android.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/commonMain/kotlin/com/mikeapp/timer/ui/TimerViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.desktop.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/desktopMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.desktop.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.ios.kt" beforeDir="false" afterPath="$PROJECT_DIR$/composeApp/src/iosMain/kotlin/com/mikeapp/timer/sound/SoundPlayer.ios.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/iosApp/iosApp/NotificationDelegate.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,8 +62,8 @@
         <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Class" />
         <option value="Swift File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -100,9 +106,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ffa6c702",
+    "git-widget-placeholder": "382dbc9f",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/code/kmp/kmp-exercise-timer/composeApp/src/iosMain/kotlin/com/mikeapp/timer",
+    "last_opened_file_path": "D:/code/kmp/kmp-exercise-timer/composeApp/src/desktopMain/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -121,11 +127,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\resources" />
+      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\androidMain\res\raw" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain\kotlin\com\mikeapp\timer" />
       <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\desktopMain\kotlin\com\mikeapp\timer" />
       <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp\Preview Content" />
-      <recent name="D:\code\kmp\kmp-exercise-timer\composeApp\src\iosMain" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\kmp\kmp-exercise-timer\iosApp\iosApp" />
@@ -457,7 +463,7 @@
       <workItem from="1752137517471" duration="2249000" />
       <workItem from="1752140095880" duration="2235000" />
       <workItem from="1752211138568" duration="9935000" />
-      <workItem from="1753000824880" duration="1266000" />
+      <workItem from="1753000824880" duration="4956000" />
     </task>
     <servers />
   </component>
