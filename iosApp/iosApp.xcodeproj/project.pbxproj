@@ -11,7 +11,6 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		FF42ACFA2E2D00750043565F /* NativeSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42ACF92E2D00750043565F /* NativeSoundPlayer.swift */; };
 		FF42ACFE2E2D0C3C0043565F /* SwiftSoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF42ACFD2E2D0C3C0043565F /* SwiftSoundPlayer.swift */; };
 		FF42AD022E2D10A60043565F /* alarm_996.wav in Resources */ = {isa = PBXBuildFile; fileRef = FF42ACFF2E2D10A60043565F /* alarm_996.wav */; };
 		FF42AD032E2D10A60043565F /* alarm_buzzer_992.wav in Resources */ = {isa = PBXBuildFile; fileRef = FF42AD002E2D10A60043565F /* alarm_buzzer_992.wav */; };
@@ -26,7 +25,6 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		FF42ACF92E2D00750043565F /* NativeSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSoundPlayer.swift; sourceTree = "<group>"; };
 		FF42ACFD2E2D0C3C0043565F /* SwiftSoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSoundPlayer.swift; sourceTree = "<group>"; };
 		FF42ACFF2E2D10A60043565F /* alarm_996.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm_996.wav; sourceTree = "<group>"; };
 		FF42AD002E2D10A60043565F /* alarm_buzzer_992.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm_buzzer_992.wav; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 			children = (
 				FF42AD012E2D10A60043565F /* Resources */,
 				FF42ACFD2E2D0C3C0043565F /* SwiftSoundPlayer.swift */,
-				FF42ACF92E2D00750043565F /* NativeSoundPlayer.swift */,
 				FFFBF7A72E2136D100B3A887 /* NotificationDelegate.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
@@ -212,7 +209,6 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				FFFBF7A82E2136D400B3A887 /* NotificationDelegate.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
-				FF42ACFA2E2D00750043565F /* NativeSoundPlayer.swift in Sources */,
 				FF42ACFE2E2D0C3C0043565F /* SwiftSoundPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
