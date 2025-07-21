@@ -11,9 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.mikeapp.timer.ui.model.NavData.configItems
-import com.mikeapp.timer.ui.model.NavData.footerItems
-import com.mikeapp.timer.ui.model.NavData.navItemsMain
+import com.mikeapp.timer.ui.nav.NavData.APP_NAME
+import com.mikeapp.timer.ui.nav.NavData.configItems
+import com.mikeapp.timer.ui.nav.NavData.footerItems
+import com.mikeapp.timer.ui.nav.NavData.navItemsMain
 
 @Composable
 fun AppDrawerNavList(
@@ -25,7 +26,7 @@ fun AppDrawerNavList(
             .padding(vertical = 16.dp)
     ) {
         Text(
-            text = "Melon Timer",
+            text = APP_NAME,
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )

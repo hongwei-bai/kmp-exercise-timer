@@ -30,6 +30,9 @@ class TimerViewModel(
     private val _currentTime = MutableStateFlow(getCurrentTimeLong())
     val currentTime: StateFlow<Long> = _currentTime
 
+    private val _tabList = MutableStateFlow(mutableListOf<Any>())
+    val tabList: StateFlow<List<Any>> = _tabList
+
     private var job: Job? = null
 
     fun startTimer() {

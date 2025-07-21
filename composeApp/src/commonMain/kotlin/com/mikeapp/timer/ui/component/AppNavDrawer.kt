@@ -11,7 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mikeapp.timer.ui.model.TimerType
+import com.mikeapp.timer.data.model.TimerType
 import kotlinx.coroutines.launch
 
 @Composable
