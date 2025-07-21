@@ -18,10 +18,9 @@ import com.mikeapp.timer.ui.base.BaseViewModel
 import com.mikeapp.timer.ui.util.getCurrentTimeLong
 import com.mikeapp.timer.ui.viewstate.TimeConfigViewState
 import com.mikeapp.timer.ui.viewstate.map
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock.System.now
 
 // commonMain
@@ -31,45 +30,66 @@ class TimerViewModel(
     private val _currentTime = MutableStateFlow(getCurrentTimeLong())
     val currentTime: StateFlow<Long> = _currentTime
 
-    init {
-        viewModelScope.launch {
-            while (true) {
+    private var job: Job? = null
+
+    fun startTimer() {
+        if (job?.isActive == true) return // avoid duplicate
+
+        job = viewModelScope.launch {
+            while (isActive) {
                 delay(1000)
                 _currentTime.value = getCurrentTimeLong()
             }
         }
     }
 
+    fun stopTimer() {
+        job?.cancel()
+        job = null
+    }
+
     fun showReminderNotification() {
-        Notification.showNotification(
-            reminderNotificationTitle, reminderNotificationMessage,
-            NotificationCategory.Reminder
-        )
-        SoundPlayer.playSound(AlarmSound.Alarm_996)
+        viewModelScope.launch(Dispatchers.IO) {
+            Notification.showNotification(
+                reminderNotificationTitle, reminderNotificationMessage,
+                NotificationCategory.Reminder
+            )
+            SoundPlayer.playSound(AlarmSound.Alarm_996)
+        }
     }
 
     fun showAlarmNotification() {
-        Notification.showNotification(
-            alarmNotificationTitle, alarmNotificationMessage,
-            NotificationCategory.Alarm
-        )
-        SoundPlayer.playSound(AlarmSound.Alarm_buzzer_992)
+        viewModelScope.launch(Dispatchers.IO) {
+            Notification.showNotification(
+                alarmNotificationTitle, alarmNotificationMessage,
+                NotificationCategory.Alarm
+            )
+            SoundPlayer.playSound(AlarmSound.Alarm_buzzer_992)
+        }
     }
 
     fun setReminder(time: Long) {
-        AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        viewModelScope.launch(Dispatchers.IO) {
+            AlarmSetter.setAlarm(time, reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        }
     }
 
     fun cancelReminder() {
-        AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        viewModelScope.launch(Dispatchers.IO) {
+            AlarmSetter.cancelAlarm(reminderNotificationTitle, reminderNotificationMessage, AlarmCategory.Reminder)
+        }
     }
 
     fun setAlarm(time: Long) {
-        AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        viewModelScope.launch(Dispatchers.IO) {
+            AlarmSetter.setAlarm(time, alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        }
     }
 
     fun cancelAlarm() {
-        AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        viewModelScope.launch(Dispatchers.IO) {
+            AlarmSetter.cancelAlarm(alarmNotificationTitle, alarmNotificationMessage, AlarmCategory.Alarm)
+        }
     }
 
     fun saveTimeConfig(
@@ -80,7 +100,7 @@ class TimerViewModel(
         reminderState: AlarmState,
         alarmState: AlarmState
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             println("save time config, reminderState: $reminderState")
             repository.saveTimerConfig(
                 reminderMinutes = reminderMinutes,
@@ -96,7 +116,7 @@ class TimerViewModel(
     }
 
     fun restoreTimeConfig(onResult: (TimeConfigViewState) -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val timerConfig = repository.getTimerConfig()?.map()
             println("restore time config, reminderState: ${timerConfig?.reminderState}")
             timerConfig?.let {
@@ -123,35 +143,35 @@ class TimerViewModel(
     }
 
     fun saveTimeRecords(records: List<Long>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.clearAllTimeRecords()
             repository.saveAllTimeRecords(records)
         }
     }
 
     fun restoreTimeRecords(onResult: (List<Long>) -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val records = repository.getAllTimeRecords()
             onResult(records)
         }
     }
 
     fun saveReps(reps: List<Long>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.clearAllReps()
             repository.saveAllReps(reps)
         }
     }
 
     fun restoreReps(onResult: (List<Long>) -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val reps = repository.getAllReps()
             onResult(reps)
         }
     }
 
     fun clearAll() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.clearAllReps()
             repository.clearAllTimeRecords()
             repository.clearTimerConfig()

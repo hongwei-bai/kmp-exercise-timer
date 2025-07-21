@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 
 actual class AppLifecycle {
-    actual fun observeLifecycle(onEnterForeground: () -> Unit, onEnterBackground: () -> Unit) {
+    actual suspend fun observeLifecycle(onEnterForeground: () -> Unit, onEnterBackground: () -> Unit) {
         val lifecycleOwner = ProcessLifecycleOwner.get()
         lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {

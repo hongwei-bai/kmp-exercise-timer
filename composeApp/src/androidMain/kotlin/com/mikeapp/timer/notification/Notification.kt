@@ -8,7 +8,7 @@ import org.koin.core.component.KoinComponent
 
 actual object Notification : KoinComponent {
     @RequiresApi(Build.VERSION_CODES.O)
-    actual fun showNotification(title: String, message: String, category: NotificationCategory) {
+    actual suspend fun showNotification(title: String, message: String, category: NotificationCategory) {
         val koin = org.koin.core.context.GlobalContext.getOrNull()
         if (koin != null) {
             val context: Context = koin.get()

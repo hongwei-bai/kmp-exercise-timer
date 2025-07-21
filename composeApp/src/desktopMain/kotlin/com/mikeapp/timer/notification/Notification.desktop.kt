@@ -6,11 +6,11 @@ import java.awt.TrayIcon
 import java.awt.TrayIcon.MessageType
 
 actual object Notification {
-    actual fun showNotification(title: String, message: String, category: NotificationCategory) {
+    actual suspend fun showNotification(title: String, message: String, category: NotificationCategory) {
         showDesktopNotification(title, message)
     }
 
-    private fun showDesktopNotification(title: String, message: String) {
+    private suspend fun showDesktopNotification(title: String, message: String) {
         if (!SystemTray.isSupported()) {
             println("System tray not supported!")
             return

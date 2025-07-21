@@ -14,5 +14,5 @@ val commonModule = module {
     }
     single<TimerRoomDatabase> { get<Factory>().createRoomDatabase() }
     single { TimerRepository(get(), get()) }
-    factory { TimerViewModel(get()) }
+    single { TimerViewModel(get()) }
 }

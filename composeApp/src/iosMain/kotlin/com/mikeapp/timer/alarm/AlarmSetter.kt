@@ -1,16 +1,15 @@
 package com.mikeapp.timer.alarm
 
+import platform.Foundation.NSDate
+import platform.Foundation.timeIntervalSince1970
 import platform.UserNotifications.*
-import platform.Foundation.*
-import platform.darwin.*
-import kotlinx.cinterop.*
 
 actual object AlarmSetter {
 
     private val center = UNUserNotificationCenter.currentNotificationCenter()
     private const val ALARM_ID = "MELON_TIMER_ALARM"
 
-    actual fun setAlarm(
+    actual suspend fun setAlarm(
         timestampMillis: Long,
         title: String,
         message: String,
@@ -55,7 +54,7 @@ actual object AlarmSetter {
         }
     }
 
-    actual fun cancelAlarm(
+    actual suspend fun cancelAlarm(
         title: String,
         message: String,
         alarmCategory: AlarmCategory

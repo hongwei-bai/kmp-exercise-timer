@@ -8,7 +8,7 @@ import com.mikeapp.timer.alarm.AlarmSound
 actual object SoundPlayer {
     private var mediaPlayer: MediaPlayer? = null
 
-    actual fun playSound(sound: AlarmSound) {
+    actual suspend fun playSound(sound: AlarmSound) {
         val koin = org.koin.core.context.GlobalContext.getOrNull()
         if (koin != null) {
             val context: Context = koin.get()
@@ -24,7 +24,7 @@ actual object SoundPlayer {
         }
     }
 
-    actual fun stopSound() {
+    actual suspend fun stopSound() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null

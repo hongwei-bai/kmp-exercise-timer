@@ -8,7 +8,7 @@ import kotlinx.cinterop.*
 
 actual object Notification : KoinComponent {
 
-    actual fun showNotification(
+    actual suspend fun showNotification(
         title: String,
         message: String,
         category: NotificationCategory

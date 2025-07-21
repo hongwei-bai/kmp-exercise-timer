@@ -5,3 +5,7 @@ interface Platform {
 }
 
 expect fun getPlatform(): Platform
+
+fun isiOS() =  getPlatform().name.contains("iOS")
+
+fun isAndroid() =  getPlatform().name.contains("Android")

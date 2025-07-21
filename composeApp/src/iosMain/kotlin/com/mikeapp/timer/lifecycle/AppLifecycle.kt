@@ -12,7 +12,7 @@ private var retainedObserver: NSObject? = null
 
 actual class AppLifecycle {
     @OptIn(ExperimentalForeignApi::class)
-    actual fun observeLifecycle(
+    actual suspend fun observeLifecycle(
         onEnterForeground: () -> Unit,
         onEnterBackground: () -> Unit
     ) {

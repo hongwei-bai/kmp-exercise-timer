@@ -8,11 +8,11 @@ actual object SoundPlayer {
     var delegatePlaySound: ((String) -> Unit)? = null
     var delegateStopSound: (() -> Unit)? = null
 
-    actual fun playSound(sound: AlarmSound) {
+    actual suspend fun playSound(sound: AlarmSound) {
         delegatePlaySound?.invoke(sound.toFileName())
     }
 
-    actual fun stopSound() {
+    actual suspend fun stopSound() {
         delegateStopSound?.invoke()
     }
 }

@@ -1,7 +1,7 @@
 package com.mikeapp.timer.lifecycle
 
 actual class AppLifecycle {
-    actual fun observeLifecycle(
+    actual suspend fun observeLifecycle(
         onEnterForeground: () -> Unit,
         onEnterBackground: () -> Unit
     ) {

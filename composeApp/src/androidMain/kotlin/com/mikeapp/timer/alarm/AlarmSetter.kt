@@ -5,7 +5,7 @@ import org.koin.core.context.GlobalContext
 
 @SuppressLint("ScheduleExactAlarm")
 actual object AlarmSetter {
-    actual fun setAlarm(timestampMillis: Long, title: String, message: String, alarmCategory: AlarmCategory) {
+    actual suspend fun setAlarm(timestampMillis: Long, title: String, message: String, alarmCategory: AlarmCategory) {
         val koin = GlobalContext.getOrNull()
         if (koin != null) {
             val alarmHelper: AlarmHelper = koin.get()
@@ -15,7 +15,7 @@ actual object AlarmSetter {
         }
     }
 
-    actual fun cancelAlarm(title: String, message: String, alarmCategory: AlarmCategory) {
+    actual suspend fun cancelAlarm(title: String, message: String, alarmCategory: AlarmCategory) {
         val koin = GlobalContext.getOrNull()
         if (koin != null) {
             val alarmHelper: AlarmHelper = koin.get()
